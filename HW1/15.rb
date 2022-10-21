@@ -1,7 +1,7 @@
 p 'Дан целочисленный массив. Осуществить циклический сдвиг элементов массива вправо на одну позицию.'
 arr = []
 rand(5..15).times { arr << rand(10..100) }
-p "(#{arr}.map { |e| e = arr.min if e > 0 }"
-p arr.map.with_index { |e, i| }
+p "(#{arr}.rotate(-1)"
+p arr.rotate(-1)
 
 
