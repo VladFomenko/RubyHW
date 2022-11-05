@@ -1,5 +1,7 @@
-p 'Дан целочисленный массив. Заменить все положительные элементы на значение минимального.	'
+# frozen_string_literal: true
+
+p 'Дан целочисленный массив. Заменить все положительные элементы на значение минимального.'
 arr = []
 rand(5..15).times { arr << rand(-100..100) }
-p "#{arr}.map { |e| e = arr.min if e > 0 }"
-p arr.map { |e| e > 0 ? e = arr.min : e }
+p "#{arr}.map { |e| e.positive? ? arr.min : e }"
+p(arr.map { |e| e.positive? ? arr.min : e })

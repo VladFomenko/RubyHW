@@ -10,4 +10,3 @@ p arr.map { |e| e == arr.max ? e : ' ' }
      .strip
      .split
      .map { |e| e.length / arr.max.to_s.length }.max
-
