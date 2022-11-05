@@ -13,6 +13,7 @@ class CreateHtmlPage
     else
       file_html.write(CreateHtmlPage.add_content(page, CreateHtmlPage.clear_html(pars)))
     end
+    file_html.close
   end
 
   def self.add_content(page, content)
