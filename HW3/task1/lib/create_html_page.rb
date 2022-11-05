@@ -31,14 +31,3 @@ class CreateHtmlPage
     end
   end
 end
-
-c = { health: @health_index,
-      hungry: @hunger_index,
-      thirst: @thirst_index,
-      sleep: @asleep_index,
-      age: @time_index,
-      play: @play_index,
-      love: @love_index,
-      disease: @disease_index }
-
-CreateHtmlPage.create_page(content: c)
