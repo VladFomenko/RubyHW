@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'create_html_page'
+
 ANIMALS = { 0 => %w[rooster parrot penguins owl],
             1 => %w[snake turtles crocodiles caiman],
             2 => %w[cat dog raccoon beaver] }.freeze
@@ -125,6 +127,7 @@ class Pet < BasicFunctionsLife
   end
 
   def tell_with_pet
+    CreateHtmlPage.create_page(content: all_params)
     disease if @disease_index < 1
     check_params
     puts "Please enter command from #{@all_actions.keys}"
@@ -139,6 +142,17 @@ class Pet < BasicFunctionsLife
   end
 
   private
+
+  def all_params
+    { health: @health_index,
+      hungry: @hunger_index,
+      thirst: @thirst_index,
+      sleep: @asleep_index,
+      age: @time_index,
+      play: @play_index,
+      love: @love_index,
+      disease: @disease_index }
+  end
 
   def change_any_params(**arg)
     @mood_index += arg[:mood]
