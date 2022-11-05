@@ -5,7 +5,7 @@ require 'sanitize'
 class CreateHtmlPage
   def self.create_page(content: '', name: 'index.html', bypass_html: false)
     page = ['<!DOCTYPE html>', '<html lang="en">', '<head>', '<meta charset="UTF-8">', '<title>New page</title>',
-            '</head>', '<body>', '</body>', '</html>']
+            '</head>', '<body>', CreateHtmlPage.smile(content), '</body>', '</html>']
     file_html = File.new(name, 'w+')
     pars = CreateHtmlPage.pars(content)
     if bypass_html
@@ -29,6 +29,19 @@ class CreateHtmlPage
       value.map { |k, v| "<div>\n<p>#{k} = #{v}</p>\n</div>\n" }.join
     else
       value
+    end
+  end
+
+  def self.smile(value)
+    case value[:health]
+    when (4..1000)
+      '<div style="font-size:48px">&#128512;</div>'
+    when (-39..3)
+      '<div style="font-size:48px">&#128547;</div>'
+    when (-1000..-40)
+      '<div style="font-size:48px">&#9760;</div>'
+    else
+      '<div style="font-size:48px">&#128126;</div>'
     end
   end
 end
