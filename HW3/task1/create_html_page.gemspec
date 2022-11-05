@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'create_html_page'
-  s.version     = '0.0.1'
+  s.version     = '0.0.2'
   s.summary     = 'create html page'
   s.description = 'this method checks, create html page with your content'
   s.authors     = ['Vladyslav Fomenko']
