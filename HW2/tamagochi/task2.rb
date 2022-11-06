@@ -194,25 +194,25 @@ class Pet < BasicFunctionsLife
   end
 
   def disease
-    unless rand(1..100) > 5
-      @disease_index = 3
-      puts('I\'m sick...(', 'I need to take the pills 3 times')
-      change_main_params(health: -30, hunger: 0, thirst: rand(-5..-3), asleep: rand(5..7), time: rand(1..3))
-    end
+    return if rand(1..100) < 5
+
+    @disease_index = 3
+    puts('I\'m sick...(', 'I need to take the pills 3 times')
+    change_main_params(health: -30, hunger: 0, thirst: rand(-5..-3), asleep: rand(5..7), time: rand(1..3))
   end
 
   def died
-    unless @health_index >= -40
-      puts 'I\'m died'
-      exit
-    end
+    return if @health_index < -39
+
+    puts 'I\'m died'
+    exit
   end
 
   def unhappy
-    unless @love_index > - 5
-      puts 'I go out. Bye...'
-      exit
-    end
+    return if @love_index < - 5
+
+    puts 'I go out. Bye...'
+    exit
   end
 
   def disease?
