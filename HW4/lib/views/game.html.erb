@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tamagotchi</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%#= csrf_meta_tags %>
+  <%#= csp_meta_tag %>
+
+  <%#= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%#= javascript_importmap_tags %>
+</head>
+
+<body>
+<div>
+  <% @message.each do |e| %>
+    <h1><%= e %></h1>
+  <% end %>
+</div>
+<form action="/new_act" method="get">
+  <label for="act">Your acts</label>
+  <input list="acts" name="act" id="act">
+  <datalist id="acts" >
+    <option value="eat">
+    <option value="drink">
+    <option value="sleep">
+    <option value="walk">
+    <option value="eat vegetables">
+    <option value="play">
+    <option value="do exercise">
+    <option value="how old are you?">
+    <option value="take medication">
+    <option value="eat fast food">
+    <option value="read book">
+  </datalist>
+  <input type="submit">
+</form>
+
+</body>
+</html>
