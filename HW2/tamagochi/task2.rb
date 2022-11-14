@@ -77,12 +77,12 @@ class Pet < BasicFunctionsLife
   end
 
   def eat_vegetables
-    if !hunger?
-      puts 'I don\'t want eat'
-    else
+    if hunger?
       puts 'I don\'t like vegetables(('
       change_main_params(health: 0, hunger: 0, thirst: 0, asleep: 0, time: 1)
       change_any_params(mood: 0, play: -2, love: rand(-3..-1))
+    else
+      puts 'I don\'t want eat'
     end
   end
 
@@ -131,11 +131,10 @@ class Pet < BasicFunctionsLife
     your_method = gets.chomp.downcase
     if @all_actions.include?(your_method)
       send(@all_actions[your_method])
-      tell_with_pet
     else
       puts 'Oh, I don\'t know that :('
-      tell_with_pet
     end
+    tell_with_pet
   end
 
   private
