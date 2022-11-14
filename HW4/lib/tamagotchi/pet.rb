@@ -77,12 +77,12 @@ class Pet < BasicFunctionsLife
   end
 
   def eat_vegetables
-    if !hunger?
-      @message.push('I don\'t want eat')
-    else
+    if hunger?
       @message.push('I don\'t like vegetables((')
       change_main_params(health: 0, hunger: 0, thirst: 0, asleep: 0, time: 1)
       change_any_params(mood: 0, play: -2, love: rand(-3..-1))
+    else
+      @message.push('I don\'t want eat')
     end
   end
 
@@ -151,9 +151,9 @@ class Pet < BasicFunctionsLife
     @all_actions.include?(your_method)
   end
 
-  def type
-    @type
-  end
+  # def type
+  #   @type
+  # end
 
   private
 
@@ -200,24 +200,24 @@ class Pet < BasicFunctionsLife
   end
 
   def disease
-    unless rand(1..100) > 25
-      @disease_index = 3
-      @message.push('I\'m sick...(', 'I need to take the pills 3 times')
-      change_main_params(health: -30, hunger: 0, thirst: rand(-5..-3), asleep: rand(5..7), time: rand(1..3))
-    end
+    return if rand(1..100) > 5
+
+    @disease_index = 3
+    @message.push('I\'m sick...(', 'I need to take the pills 3 times')
+    change_main_params(health: -30, hunger: 0, thirst: rand(-5..-3), asleep: rand(5..7), time: rand(1..3))
   end
 
   def died
-    unless @health_index >= -40
-      @message = ['died']
-    end
+    return if @health_index >= -40
+
+    @message = ['died']
   end
 
   def unhappy
-    unless @love_index > - 5
-      @message.push('I go out. Bye...')
-      exit
-    end
+    return if  @love_index > - 5
+
+    @message.push('I go out. Bye...')
+    exit
   end
 
   def disease?

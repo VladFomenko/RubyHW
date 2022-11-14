@@ -23,7 +23,7 @@ class Application
       if check_nil_empty?(@name)
         request('index.html.erb')
       else
-        @message.unshift("Hello! I'm #{@pet.type} and my name is #{@name}")
+        @message.unshift("Hello! I'm #{@pet.instance_variable_get(:@type)} and my name is #{@name}")
         request('game.html.erb')
       end
     when '/new_act'
