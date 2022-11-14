@@ -79,12 +79,12 @@ class Pet < BasicFunctionsLife
   end
 
   def eat_vegetables
-    if !hunger?
-      puts 'I don\'t want eat'
-    else
+    if hunger?
       puts 'I don\'t like vegetables(('
       change_main_params(health: 0, hunger: 0, thirst: 0, asleep: 0, time: 1)
       change_any_params(mood: 0, play: -2, love: rand(-3..-1))
+    else
+      puts 'I don\'t want eat'
     end
   end
 
@@ -134,11 +134,10 @@ class Pet < BasicFunctionsLife
     your_method = gets.chomp.downcase
     if @all_actions.include?(your_method)
       send(@all_actions[your_method])
-      tell_with_pet
     else
       puts 'Oh, I don\'t know that :('
-      tell_with_pet
     end
+    tell_with_pet
   end
 
   private
@@ -197,25 +196,25 @@ class Pet < BasicFunctionsLife
   end
 
   def disease
-    unless rand(1..100) > 5
-      @disease_index = 3
-      puts('I\'m sick...(', 'I need to take the pills 3 times')
-      change_main_params(health: -30, hunger: 0, thirst: rand(-5..-3), asleep: rand(5..7), time: rand(1..3))
-    end
+    return if rand(1..100) < 5
+
+    @disease_index = 3
+    puts('I\'m sick...(', 'I need to take the pills 3 times')
+    change_main_params(health: -30, hunger: 0, thirst: rand(-5..-3), asleep: rand(5..7), time: rand(1..3))
   end
 
   def died
-    unless @health_index >= -40
-      puts 'I\'m died'
-      exit
-    end
+    return if @health_index < -39
+
+    puts 'I\'m died'
+    exit
   end
 
   def unhappy
-    unless @love_index > - 5
-      puts 'I go out. Bye...'
-      exit
-    end
+    return if @love_index < - 5
+
+    puts 'I go out. Bye...'
+    exit
   end
 
   def disease?
