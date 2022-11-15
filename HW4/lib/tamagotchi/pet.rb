@@ -151,10 +151,6 @@ class Pet < BasicFunctionsLife
     @all_actions.include?(your_method)
   end
 
-  # def type
-  #   @type
-  # end
-
   private
 
   def change_any_params(**arg)
