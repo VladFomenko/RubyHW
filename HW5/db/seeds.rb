@@ -6,3 +6,8 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+10.times do
+  test = Article.new(title: FFaker::Book.author, body: FFaker::Book.title)
+  test.save
+end
