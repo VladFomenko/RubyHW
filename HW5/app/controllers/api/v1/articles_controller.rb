@@ -1,50 +1,49 @@
 class Api::V1::ArticlesController < ApplicationController
   def index
-    Article.all
-
-    render redirect_to index
+    render json: Article.all
   end
 
   def create
     new_article = Article.create(person_params)
     if new_article.save
-      render redirect_to show, notice: 'Create new Article'
+      render json: new_article, notice: 'Create new Article'
     else
-      render redirect_to create, notice: 'Failed to create new Article'
+      render json: new_article, notice: 'Failed to create new Article'
     end
   end
 
   def show
-    Article.find(params[:id])
-
-    render redirect_to show
+    article = Article.find(params[:id])
+    render json: article
   end
 
-  def edit
+  def edit; end
+
+  def update
     article = Article.find(params[:id])
-    article[:title] = person_params[:title]
-    article[:body] = person_params[:body]
+    article[:title] = params[:title]
+    article[:body] = params[:body]
 
     if article.save
-      render redirect_to show, notice: 'Changes are successful'
+      render json: article, notice: 'Changes are successful'
     else
-      render redirect_to edit, notice: 'Failed to changes'
+      render json: article, notice: 'Failed to changes'
     end
   end
 
-  def update; end
-
   def destroy
     article = Article.find(params[:id]).destroy
-    article.delete
-
-    render redirect_to index, notice: 'Delete succesful'
+    if article.delete
+      render json: article, notice: 'Delete succesful'
+    else
+      render json: article, notice: 'Delete unsuccessful'
+    end
   end
 
-  private
-
-  def person_params
-    params.require(:article).permit(:title, :body)
-  end
+  # private
+  # Don't work
+  # def person_params
+  #   params.require(:article).permit(:title, :body)
+  # end
 
 end
