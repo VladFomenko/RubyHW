@@ -1,49 +1,47 @@
+# frozen_string_literal: true
+
 class Api::V1::ArticlesController < ApplicationController
+  before_action :person_params, only: [:create, :update]
+  before_action :set_article, except: [:index, :create]
+
   def index
-    render json: Article.all
+    @articles = Article.all
+    render json: @articles
   end
 
   def create
-    new_article = Article.create(person_params)
-    if new_article.save
-      render json: new_article, notice: 'Create new Article'
+    @article = Article.create(person_params)
+    if @article.save
+      render json: @article
     else
-      render json: new_article, notice: 'Failed to create new Article'
+      render json: @article
     end
   end
 
   def show
-    article = Article.find(params[:id])
-    render json: article
+    render json: @article
   end
 
-  def edit; end
-
   def update
-    article = Article.find(params[:id])
-    article[:title] = params[:title]
-    article[:body] = params[:body]
-
-    if article.save
-      render json: article, notice: 'Changes are successful'
+    if @article.update(person_params)
+      render json: @article
     else
-      render json: article, notice: 'Failed to changes'
+      render json: @article.errors, status: :unprocessable_entity
     end
   end
 
   def destroy
-    article = Article.find(params[:id]).destroy
-    if article.delete
-      render json: article, notice: 'Delete succesful'
-    else
-      render json: article, notice: 'Delete unsuccessful'
-    end
+    render plain: 'Deletion successful' if @article.destroy
   end
 
-  # private
-  # Don't work
-  # def person_params
-  #   params.require(:article).permit(:title, :body)
-  # end
+  private
+
+  def set_article
+    @article = Article.find(params[:id])
+  end
+
+  def person_params
+    params.require(:article).permit(:title, :body)
+  end
 
 end
