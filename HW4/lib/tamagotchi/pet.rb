@@ -43,7 +43,6 @@ end
 # class Pet for Pet
 class Pet < BasicFunctionsLife
   def initialize
-
     super
     @name = ''
     @mood_index = 5
