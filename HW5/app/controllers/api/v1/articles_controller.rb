@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Api::V1::ArticlesController < ApplicationController
-  before_action :person_params, only: [:create, :update]
   before_action :set_article, except: [:index, :create]
 
   def index
