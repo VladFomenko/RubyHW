@@ -42,9 +42,11 @@ end
 
 # class Pet for Pet
 class Pet < BasicFunctionsLife
+
+  attr_accessor :name
+
   def initialize
     super
-    @name = ''
     @mood_index = 5
     @play_index = 5
     @love_index = 5
@@ -57,7 +59,7 @@ class Pet < BasicFunctionsLife
 
   def walk
     if basic_necessity?
-      @message.push('I don\'t want walk')
+      @message.push("I don't want walk")
     else
       @message.push('I love you :) I like walk!')
       change_main_params(health: rand(0..1), hunger: rand(2..6), thirst: rand(2..6), asleep: rand(1..3), time: 3)
@@ -66,7 +68,7 @@ class Pet < BasicFunctionsLife
 
   def play
     if basic_necessity?
-      @message.push('I don\'t want play')
+      @message.push("I don't want walk")
     else
       @message.push("You and #{@name} are playing a very funny game")
       change_main_params(health: rand(0..2), hunger: rand(1..3), thirst: rand(1..3), asleep: rand(1..3),
@@ -77,17 +79,17 @@ class Pet < BasicFunctionsLife
 
   def eat_vegetables
     if hunger?
-      @message.push('I don\'t like vegetables((')
+      @message.push("I don't like vegetables((")
       change_main_params(health: 0, hunger: 0, thirst: 0, asleep: 0, time: 1)
       change_any_params(mood: 0, play: -2, love: rand(-3..-1))
     else
-      @message.push('I don\'t want eat')
+      @message.push("I don't want eat")
     end
   end
 
   def do_useful_exercise
     if basic_necessity?
-      @message.push('I don\'t want to do exercise')
+      @message.push("I don't want to do exercise")
     else
       @message.push("You and #{@name} are playing a very funny game")
       change_main_params(health: rand(1..2), hunger: rand(-3..-0), thirst: rand(-3..-1), asleep: 2, time: 2)
@@ -99,7 +101,7 @@ class Pet < BasicFunctionsLife
     if basic_necessity?
       @message.push('I dont want to read book!!!')
     else
-      @message.push('Okaaaay, let\'s do it...')
+      @message.push("Okaaaay, let's do it...")
       change_main_params(health: 0, hunger: rand(-3..-0), thirst: -1, asleep: rand(1..3), time: rand(1..3))
       change_any_params(mood: rand(-2..-1), play: -2, love: rand(-3..-1))
     end
@@ -109,15 +111,15 @@ class Pet < BasicFunctionsLife
     @message.push("I'm READY! I want to #{%w[pizza hot-dog hamburger][rand(0..2)]}")
     change_main_params(health: rand(-3..-1), hunger: rand(4), thirst: rand(-3..-1), asleep: 1, time: rand(1..2))
     change_any_params(mood: rand(1..3), play: -1, love: rand(1..3))
-    @message.push('I\'m so happy! Thank\'s!!!')
+    @message.push("I'm so happy! Thanks!!!")
   end
 
   def take_medication
     if @disease_index < 1
-      @message.push('I\'m not cold!')
+      @message.push("I'm not cold!")
     else
       @disease_index -= 1
-      @message.push('I\'m cold')
+      @message.push("I'm cold")
       change_main_params(health: 8, hunger: rand(-3..-0), thirst: rand(-3..-1), asleep: rand(1..3), time: 1)
       change_any_params(mood: rand(0..1), play: 0, love: 0)
     end
@@ -129,7 +131,7 @@ class Pet < BasicFunctionsLife
     if check_methods?(your_method)
       send(@all_actions[your_method])
     else
-      @message.push('Oh, I don\'t know that :(')
+      @message.push("Oh, I don't know that :(")
     end
     @message = []
   end
@@ -198,7 +200,7 @@ class Pet < BasicFunctionsLife
     return if rand(1..100) > 5
 
     @disease_index = 3
-    @message.push('I\'m sick...(', 'I need to take the pills 3 times')
+    @message.push("I'm sick...(", 'I need to take the pills 3 times')
     change_main_params(health: -30, hunger: 0, thirst: rand(-5..-3), asleep: rand(5..7), time: rand(1..3))
   end
 
@@ -222,17 +224,17 @@ class Pet < BasicFunctionsLife
   def check_params
     died
     unhappy
-    @message.push('I\'m cold') if disease?
+    @message.push("I'm cold") if disease?
     change_main_params(health: -3, hunger: 0, thirst: 0, asleep: 0, time: 0) if disease?
-    @message.push('I\'m so unhappy') if mood?
+    @message.push("I'm so unhappy") if mood?
     @message.push('I want to asleep') if asleep?
     @message.push('I want to PLAAAAAY') if pleasure? && !basic_necessity?
-    @message.push('I\'m hungry') if hunger?
-    @message.push('I\'m thirsty') if thirst?
-    @message.push('So, you don\'t love me...') if love?
+    @message.push("I'm hungry") if hunger?
+    @message.push("I'm thirsty") if thirst?
+    @message.push("So, you don't love me...") if love?
   end
 
   def bye
-    @message.push('Bye! I\'m dying...(')
+    @message.push("Bye! I'm dying...(")
   end
 end
