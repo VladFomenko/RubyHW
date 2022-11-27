@@ -3,30 +3,31 @@
 # Articles controller
 class Api::V1::ArticlesController < ApplicationController
   before_action :set_article, except: %i[index create]
+  before_action :set_author, only: %i[index create show set_article]
 
   def index
-    @articles = Article.all
-    render json: @articles
+    render json: @author.articles
   end
 
   def create
-    @article = Article.create(person_params)
-    if @article.save
-      render json: @article
+    @article = @author.articles.new(person_params)
+    if @article.valid?
+      @article.save
+      render @article
     else
-      render json: @article
+      render plain: 'Article not valid'
     end
   end
 
   def show
-    render json: @article
+    render json: { article: @article, comments: @article.comments }
   end
 
   def update
     if @article.update(person_params)
       render json: @article
     else
-      render json: @article.errors, status: :unprocessable_entity
+      render plain: 'Update unsuccessfully'
     end
   end
 
@@ -37,11 +38,15 @@ class Api::V1::ArticlesController < ApplicationController
   private
 
   def set_article
-    @article = Article.find(params[:id])
+    @article = @author.articles.find(params[:id])
+  end
+
+  def set_author
+    @author = Author.find(params[:author_id])
   end
 
   def person_params
-    params.require(:article).permit(:title, :body)
+    params.require(:authors).require(:articles).permit(:title, :body)
   end
 
 end
