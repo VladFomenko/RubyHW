@@ -8,6 +8,5 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 10.times do
-  test = Article.new(title: FFaker::Book.author, body: FFaker::Book.title)
-  test.save
+  test = Article.create(title: FFaker::Book.author, body: FFaker::Book.title)
 end
