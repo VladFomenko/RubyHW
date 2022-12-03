@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'pet'
+# require 'active_support/core_ext/object/to_json'
 
 require 'rack'
 require 'erb'

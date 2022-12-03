@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# class Comment
 class Comment < ApplicationRecord
   belongs_to :author
   belongs_to :article
@@ -7,5 +10,7 @@ class Comment < ApplicationRecord
   validates :article_id, presence: true
   validates :author_id, presence: true
 
-  enum status: [:unpublished, :published]
+  scope :all_comments, ->(article_id) { where('article_id = ?', article_id) }
+
+  enum status: %i[unpublished published]
 end
