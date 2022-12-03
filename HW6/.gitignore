@@ -30,3 +30,6 @@
 
 # Ignore database
 /config/database.yml
+
+# Byebug ignore
+.byebug_history
