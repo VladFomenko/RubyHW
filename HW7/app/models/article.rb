@@ -4,6 +4,7 @@
 class Article < ApplicationRecord
   belongs_to :author
   has_many :comments, dependent: :destroy
+  has_and_belongs_to_many :tags
 
   validates :body, presence: true
   validates :body, length: { minimum: 3 }
