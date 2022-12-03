@@ -19,7 +19,12 @@ user_third = Author.create
   new_user = @user.shuffle
   new_user[0].articles.create(title: FFaker::Book.author, body: FFaker::Book.title)
 end
+
 40.times do
   new_user = @user.shuffle
   new_user[0].comments.create(body: FFaker::ColorUA.name, article_id: Article.all.sample.id)
+end
+
+40.times do
+  Article.all.sample.tags.create(title: FFaker::Tweet.tags.split(' ').to_a.pop)
 end
