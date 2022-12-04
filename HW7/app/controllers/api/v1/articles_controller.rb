@@ -5,52 +5,50 @@ module Api
   module V1
     # class ArticlesController
     class ArticlesController < ApplicationController
-      before_action :set_article, except: %i[index]
       before_action :set_author, only: %i[index create show set_article]
+      before_action :set_article, except: %i[index]
+      after_action :set_tag, only: %i[create update]
 
       def index
         render json: @author.articles
       end
 
       def create
-        @article = @author.articles.new(person_params)
+        @article = @author.articles.new(article_params)
         if @article.valid?
           @article.save
           render json: @article
         else
-          render plain: 'Article not valid'
+          render json: @article, status: :not_found
         end
       end
 
       def show
         if @article.nil?
-          render plain: 'Not found article'
+          render json: @article, status: :not_found
         else
-          render json: { article: @article, comments: @article.comments }
+          render json: { article: @article, comments: @article.comments, tags: @article.tags }, status: :ok
         end
       end
 
       def update
-        if @article.update(person_params)
-          render json: @article
+        if @article.update(article_params)
+          render json: @article, status: :ok
         else
-          render plain: 'Update unsuccessfully'
+          render json: @article, status: :unprocessable_entity
         end
       end
 
       def destroy
-        render plain: 'Deletion successful' if @article.destroy
+        render json: @article, status: :ok if @article.destroy
       end
 
       private
 
       def set_article
-        set_author
-        begin
-          @article = @author.articles.find(params[:id])
-        rescue ActiveRecord::RecordNotFound
-          @article = nil
-        end
+        @article = @author.articles.find(params[:id])
+      rescue ActiveRecord::RecordNotFound
+        @article = nil
       end
 
       def set_author
