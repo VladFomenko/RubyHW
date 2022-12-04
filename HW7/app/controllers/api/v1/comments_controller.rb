@@ -17,7 +17,7 @@ module Api
       end
 
       def show
-        render json: @comment
+        render json: @comment, status: :ok
       end
 
       def create
@@ -26,7 +26,7 @@ module Api
           @comment.save
           render json: @comment, status: :ok
         else
-          render json: @comment, status: :not_acceptable
+          render json: @comment.errors, status: :not_acceptable
         end
       end
 
@@ -41,21 +41,15 @@ module Api
       private
 
       def set_article
-        if comment_params[:article_id].is_a?(Integer)
-          begin
-            @article = Article.find(comment_params[:article_id])
-          rescue ActiveRecord::RecordNotFound
-            render json: @article, status: :not_found
-          end
-        else
-          render @article, status: :not_found
-        end
+        @article = Article.find(comment_params[:article_id])
+      rescue ActiveRecord::RecordNotFound
+        render json: @article.errors, status: :not_found
       end
 
       def set_comment
         @comment = @author.comments.find(params[:id])
       rescue ActiveRecord::RecordNotFound
-        render json: @comment, status: :not_found
+        render json: @comment.errors, status: :not_found
       end
 
       def set_author

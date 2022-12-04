@@ -19,13 +19,13 @@ module Api
           @article.save
           render json: @article
         else
-          render json: @article, status: :not_found
+          render json: @article.errors, status: :not_found
         end
       end
 
       def show
         if @article.nil?
-          render json: @article, status: :not_found
+          render json: @article.errors, status: :not_found
         else
           render json: { article: @article, comments: @article.comments, tags: @article.tags }, status: :ok
         end
@@ -35,7 +35,7 @@ module Api
         if @article.update(article_params)
           render json: @article, status: :ok
         else
-          render json: @article, status: :unprocessable_entity
+          render json: @article.errors, status: :unprocessable_entity
         end
       end
 
