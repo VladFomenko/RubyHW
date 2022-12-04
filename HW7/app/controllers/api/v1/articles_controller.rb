@@ -57,7 +57,17 @@ module Api
         @author = Author.find(params[:author_id])
       end
 
-      def person_params
+      def set_tag
+        return if params[:authors][:tag].blank?
+
+        if @article.tags.find_by(title: params[:authors][:tag]).nil?
+          @article.tags.create(title: params[:authors][:tag])
+        else
+          @article.tags.update(title: params[:authors][:tag])
+        end
+      end
+
+      def article_params
         params.require(:authors).require(:articles).permit(:title, :body)
       end
     end
