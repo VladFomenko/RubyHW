@@ -11,6 +11,7 @@ class Comment < ApplicationRecord
   validates :author_id, presence: true
 
   scope :all_comments, ->(article_id) { where('article_id = ?', article_id) }
+  scope :last_ten, ->(article_id) { where('article_id = ?', article_id).order('created_at Desc').limit(10) }
 
   enum status: %i[unpublished published]
 end
