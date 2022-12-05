@@ -5,13 +5,12 @@ module Api
   module V1
     # class CommentsController
     class CommentsController < ApplicationController
-      before_action :set_author, only: %i[index create set_comment]
+      before_action :set_author, only: %i[index create update]
       before_action :set_comment, only: %i[show update destroy]
       before_action :set_article, only: %i[create]
 
       def index
         @comments = @author.comments
-        @comments = @author.comments.where(status: comment_params[:status]) if comment_params[:status].present?
 
         render json: @comments, status: :ok
       end

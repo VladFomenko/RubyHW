@@ -5,8 +5,8 @@ module Api
   module V1
     # class ArticlesController
     class ArticlesController < ApplicationController
-      before_action :set_author, only: %i[index create show set_article]
-      before_action :set_article, except: %i[index]
+      before_action :set_author, except: %i[destroy]
+      before_action :set_article, except: %i[index last_ten published unpublished]
       after_action :set_tag, only: %i[create update]
 
       def index
@@ -43,16 +43,28 @@ module Api
         render json: @article, status: :ok if @article.destroy
       end
 
+      def unpublished
+        render json: Comment.unpublished, status: :ok
+      end
+
+      def published
+        render json: Comment.published, status: :ok
+      end
+
+      def last_ten
+        render json: Comment.last_ten(params[:article_id]), status: :ok
+      end
+
       private
+
+      def set_author
+        @author = Author.find(params[:author_id])
+      end
 
       def set_article
         @article = @author.articles.find(params[:id])
       rescue ActiveRecord::RecordNotFound
         @article = nil
-      end
-
-      def set_author
-        @author = Author.find(params[:author_id])
       end
 
       def set_tag
@@ -66,7 +78,7 @@ module Api
       end
 
       def article_params
-        params.require(:authors).require(:articles).permit(:title, :body)
+        params.require(:authors).require(:articles).permit(:title, :body, :status)
       end
     end
   end
