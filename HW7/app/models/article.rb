@@ -10,4 +10,9 @@ class Article < ApplicationRecord
   validates :body, length: { minimum: 3 }
   validates :title, presence: true
   validates :title, length: { minimum: 3 }
+
+  enum status: %i[unpublished published]
+
+  scope :unpublished, -> { where('status = 0') }
+  scope :published, -> { where('status = 1') }
 end
