@@ -6,9 +6,12 @@ Rails.application.routes.draw do
       root 'authors#index'
       resources :authors do
         resources :articles do
-          get :unpublished, :published, :last_ten
+          get :unpublished, :published, :last_ten_comments
+          resources :likes
         end
-        resources :comments
+        resources :comments do
+          resources :likes
+        end
       end
     end
   end
