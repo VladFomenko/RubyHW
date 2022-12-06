@@ -6,7 +6,7 @@ module Api
     # class ArticlesController
     class ArticlesController < ApplicationController
       before_action :set_author, except: %i[destroy]
-      before_action :set_article, except: %i[index last_ten published unpublished]
+      refactor      before_action :set_article, except: %i[index last_ten_comments unpublished published last_ten]
       after_action :set_tag, only: %i[create update]
 
       def index
@@ -49,15 +49,18 @@ module Api
       end
 
       def unpublished
-        render json: Comment.unpublished, status: :ok
+        @article = Article.find(params[:article_id])
+        render json: { article: @article, comments: @article.comments.unpublished }, status: :ok
       end
 
       def published
-        render json: Comment.published, status: :ok
+        @article = Article.find(params[:article_id])
+        render json: { article: @article, comments: @article.comments.unpublished }, status: :ok
       end
 
-      def last_ten
-        render json: Comment.last_ten(params[:article_id]), status: :ok
+      def last_ten_comments
+        @article = Article.find(params[:article_id])
+        render json: Comment.last_ten(@article), status: :ok
       end
 
       private
@@ -83,7 +86,7 @@ module Api
       end
 
       def article_params
-        params.require(:authors).require(:articles).permit(:title, :body, :status)
+        params.require(:authors).require(:articles).permit(:title, :body, :status, :article_id)
       end
     end
   end
