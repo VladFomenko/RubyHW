@@ -4,6 +4,7 @@
 class Comment < ApplicationRecord
   belongs_to :author
   belongs_to :article
+  has_many :likes, as: :likeable
 
   validates :body, presence: true
   validates :body, length: { minimum: 3 }
