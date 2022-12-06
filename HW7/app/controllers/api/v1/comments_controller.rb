@@ -5,7 +5,7 @@ module Api
   module V1
     # class CommentsController
     class CommentsController < ApplicationController
-      before_action :set_author, only: %i[index create update]
+      before_action :set_author, only: %i[index create update show]
       before_action :set_comment, only: %i[show update destroy]
       before_action :set_article, only: %i[create]
 
@@ -16,7 +16,7 @@ module Api
       end
 
       def show
-        render json: @comment, status: :ok
+        render json: { comment: @comment, likes: @comment.likes.count }, status: :ok
       end
 
       def create

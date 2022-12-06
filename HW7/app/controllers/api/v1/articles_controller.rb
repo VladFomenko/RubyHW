@@ -27,7 +27,12 @@ module Api
         if @article.nil?
           render json: @article.errors, status: :not_found
         else
-          render json: { article: @article, comments: @article.comments, tags: @article.tags }, status: :ok
+          render json: {
+            article: @article,
+            comments: @article.comments,
+            tags: @article.tags,
+            likes: @article.likes.count
+          }, status: :ok
         end
       end
 
