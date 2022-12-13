@@ -7,10 +7,10 @@ Rails.application.routes.draw do
       resources :authors do
         resources :articles do
           get :unpublished, :published, :last_ten_comments
-          resources :likes
+          resources :likes, only: %i[index create update]
         end
         resources :comments do
-          resources :likes
+          resources :likes, only: %i[index create update]
         end
       end
     end

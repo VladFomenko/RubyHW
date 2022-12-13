@@ -5,8 +5,8 @@ module Api
   module V1
     # class ArticlesController
     class ArticlesController < ApplicationController
-      before_action :set_author, except: %i[destroy]
-      refactor      before_action :set_article, except: %i[index last_ten_comments unpublished published last_ten]
+      before_action :set_author, except: :destroy
+      before_action :set_article, except: %i[index last_ten_comments unpublished published last_ten]
       after_action :set_tag, only: %i[create update]
 
       def index
@@ -17,7 +17,7 @@ module Api
         @article = @author.articles.new(article_params)
         if @article.valid?
           @article.save
-          render json: @article
+          render json: { article: @article, tags: @article.tags }, status: :created
         else
           render json: @article.errors, status: :not_found
         end
@@ -55,7 +55,7 @@ module Api
 
       def published
         @article = Article.find(params[:article_id])
-        render json: { article: @article, comments: @article.comments.unpublished }, status: :ok
+        render json: { article: @article, comments: @article.comments.published }, status: :ok
       end
 
       def last_ten_comments
@@ -70,14 +70,10 @@ module Api
       end
 
       def set_article
-        @article = @author.articles.find(params[:id])
-      rescue ActiveRecord::RecordNotFound
-        @article = nil
+        @article = @author.articles.find_by!(id: params[:id])
       end
 
       def set_tag
-        return if params[:authors][:tag].blank?
-
         if @article.tags.find_by(title: params[:authors][:tag]).nil?
           @article.tags.create(title: params[:authors][:tag])
         else
