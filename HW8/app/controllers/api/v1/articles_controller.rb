@@ -5,8 +5,8 @@ module Api
   module V1
     # class ArticlesController
     class ArticlesController < ApplicationController
-      before_action :set_author, except: %i[destroy search_current_value]
-      before_action :set_article, except: %i[index last_ten_comments unpublished published search_current_value]
+      before_action :set_author, except: %i[destroy filtration_articles search_current_value]
+      before_action :set_article, only: %i[create show update destroy]
       before_action :set_article_id, only: %i[last_ten_comments published unpublished]
       after_action :set_tag, only: %i[create update]
 
@@ -70,6 +70,10 @@ module Api
         end
       end
 
+      def filtration_articles
+        render json: Article.joins(:tags).order(set_filter_params)
+      end
+
       private
 
       def set_author
@@ -90,6 +94,10 @@ module Api
         else
           @article.tags.update(title: params[:authors][:tag])
         end
+      end
+
+      def set_filter_params
+        [status: params[:status], tags: params[:tags], author: params[:author]].map(&:compact).map(&:keys).flatten
       end
 
       def article_params
