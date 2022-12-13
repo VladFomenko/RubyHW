@@ -5,8 +5,9 @@ module Api
   module V1
     # class ArticlesController
     class ArticlesController < ApplicationController
-      before_action :set_author, except: :destroy
-      before_action :set_article, except: %i[index last_ten_comments unpublished published last_ten]
+      before_action :set_author, except: %i[destroy search_current_value]
+      before_action :set_article, except: %i[index last_ten_comments unpublished published search_current_value]
+      before_action :set_article_id, only: %i[last_ten_comments published unpublished]
       after_action :set_tag, only: %i[create update]
 
       def index
@@ -49,18 +50,24 @@ module Api
       end
 
       def unpublished
-        @article = Article.find(params[:article_id])
         render json: { article: @article, comments: @article.comments.unpublished }, status: :ok
       end
 
       def published
-        @article = Article.find(params[:article_id])
         render json: { article: @article, comments: @article.comments.published }, status: :ok
       end
 
       def last_ten_comments
-        @article = Article.find(params[:article_id])
-        render json: Comment.last_ten(@article), status: :ok
+        render json: Article.last_ten(@article), status: :ok
+      end
+
+      def search_current_value
+        article = Article.where('title LIKE ? OR body LIKE ?', "%#{params[:word]}%", "%#{params[:word]}%")
+        if article.blank?
+          render json: {}, status: :not_found
+        else
+          render json: article, status: :ok
+        end
       end
 
       private
@@ -71,6 +78,10 @@ module Api
 
       def set_article
         @article = @author.articles.find_by!(id: params[:id])
+      end
+
+      def set_article_id
+        @article = @author.articles.find_by!(id: params[:article_id])
       end
 
       def set_tag

@@ -15,14 +15,14 @@ user_second = Author.create
 user_third = Author.create
 @user = [user_first, user_second, user_third]
 
-20.times do
+30.times do
   new_user = @user.shuffle
-  new_user[0].articles.create(title: FFaker::Book.author, body: FFaker::Book.title)
+  new_user[0].articles.create(title: FFaker::Book.author, body: FFaker::Book.title, status: rand(0..1))
 end
 
-40.times do
+60.times do
   new_user = @user.shuffle
-  new_user[0].comments.create(body: FFaker::ColorUA.name, article_id: Article.all.sample.id)
+  new_user[0].comments.create(body: FFaker::ColorUA.name, article_id: Article.all.sample.id, status: rand(0..1))
 end
 
 40.times do

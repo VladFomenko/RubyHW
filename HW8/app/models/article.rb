@@ -14,4 +14,5 @@ class Article < ApplicationRecord
 
   scope :unpublished, -> { where('status = 0') }
   scope :published, -> { where('status = 1') }
+  scope :last_ten, ->(article_id) { joins(:comments).where('article_id = ?', article_id).order('created_at DESC ').limit(10) }
 end
