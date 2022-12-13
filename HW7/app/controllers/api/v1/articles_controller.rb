@@ -60,7 +60,7 @@ module Api
 
       def last_ten_comments
         @article = Article.find(params[:article_id])
-        render json: Comment.last_ten(@article), status: :ok
+        render json: Article.last_ten(@article), status: :ok
       end
 
       private
