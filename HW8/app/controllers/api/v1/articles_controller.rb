@@ -5,13 +5,18 @@ module Api
   module V1
     # class ArticlesController
     class ArticlesController < ApplicationController
+
+      include Pagy::Backend
+
       before_action :set_author, except: %i[destroy filtration_articles search_current_value]
       before_action :set_article, only: %i[create show update destroy]
       before_action :set_article_id, only: %i[last_ten_comments published unpublished]
       after_action :set_tag, only: %i[create update]
 
       def index
-        render json: @author.articles
+        x = pagy(@author.articles)
+        p x
+        render json: pagy(@author.articles)[1], status: :ok
       end
 
       def create
