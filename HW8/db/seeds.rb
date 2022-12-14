@@ -10,9 +10,9 @@
 
 Author.all.each(&:destroy)
 
-user_first = Author.create
-user_second = Author.create
-user_third = Author.create
+user_first = Author.create(name: FFaker::NameUA.first_name)
+user_second = Author.create(name: FFaker::NameUA.first_name)
+user_third = Author.create(name: FFaker::NameUA.first_name)
 @user = [user_first, user_second, user_third]
 
 30.times do

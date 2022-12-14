@@ -14,8 +14,6 @@ module Api
       after_action :set_tag, only: %i[create update]
 
       def index
-        x = pagy(@author.articles)
-        p x
         render json: pagy(@author.articles)[1], status: :ok
       end
 
@@ -33,12 +31,7 @@ module Api
         if @article.nil?
           render json: @article.errors, status: :not_found
         else
-          render json: {
-            article: @article,
-            comments: @article.comments,
-            tags: @article.tags,
-            likes: @article.likes.count
-          }, status: :ok
+          render json: @article, status: :ok
         end
       end
 
