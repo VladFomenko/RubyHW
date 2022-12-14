@@ -71,7 +71,11 @@ module Api
       end
 
       def filtration_articles
-        render json: Article.joins(:tags).order(set_filter_params)
+        render json: Article.joins(:tags).order(set_filter_params), status: :ok
+      end
+
+      def sorting_articles
+        render json: Article.order("title #{params[:order].upcase}")
       end
 
       private
