@@ -1,3 +1,14 @@
+## HW8
+над роутами потрібно подумати, бо всі артікли не можуть викликатись на роуті одного артікла
+для домашки
+1. http://127.0.0.1:3000/api/v1/authors/author_id/articles/article_id/search_current_value?some_text
+2. http://127.0.0.1:3000/api/v1/authors/author_id/articles/article_id/filtration_articles?status=true
+3. http://127.0.0.1:3000/api/v1/authors/author_id/articles/article_id/sorting_articles?title=DESC
+4. пагінація дефаулт 15
+5. серіалайзер +
+
+
+
 ## Команди для старту
 `rails db:create`
 

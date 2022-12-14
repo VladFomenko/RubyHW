@@ -73,7 +73,7 @@ module Api
       end
 
       def sorting_articles
-        render json: Article.order("title #{params[:order].upcase}")
+        render json: Article.order("title #{params[:order]}")
       end
 
       private
