@@ -69,7 +69,16 @@ module Api
       end
 
       def filtration_articles
-        render json: Article.joins(:tags).order(set_filter_params), status: :ok
+        case set_filter_params.keys[0]
+        when :status
+          render json: Article.search_status(set_filter_params.values[0]), status: :ok
+        when :tags
+          render json: Article.search_tags(set_filter_params.values[0]), status: :ok
+        when :author
+          render json: Article.search_author(set_filter_params.values[0]), status: :ok
+        else
+          render json: {}, status: :not_found
+        end
       end
 
       def sorting_articles
@@ -99,11 +108,13 @@ module Api
       end
 
       def set_filter_params
-        [status: params[:status], tags: params[:tags], author: params[:author]].map(&:compact).map(&:keys).flatten
+        filter_params = [status: params[:article][:status], tags: params[:article][:tags], author: params[:article][:author]].map(&:compact).flatten[0]
+        # puts('----------', filter_params.keys[0])
+        filter_params
       end
 
       def article_params
-        params.require(:authors).require(:articles).permit(:title, :body, :status, :article_id)
+        params.require(:articles).permit(:title, :body, :status, :article_id)
       end
     end
   end

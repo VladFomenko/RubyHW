@@ -14,5 +14,9 @@ class Article < ApplicationRecord
 
   scope :unpublished, -> { where('status = 0') }
   scope :published, -> { where('status = 1') }
-  scope :last_ten, ->(article_id) { joins(:comments).where('article_id = ?', article_id).order('created_at DESC ').limit(10) }
+  scope :last_ten, ->(article_id) { find_by('id = ?', article_id).comments.order('created_at DESC ').limit(10) }
+  scope :search_author, ->(author_name) { joins(:author).where('authors.name = ?', author_name) }
+  scope :search_status, ->(status) { where('status = ?', status) }
+  scope :search_tags, ->(tags) { joins(:tags).where({ tags: { title: '?' } }, tags) }
+  scope :search_tags, ->(tags) { joins(:tags).where({ tags: { title: tags } }) }
 end

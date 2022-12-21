@@ -56,7 +56,7 @@ module Api
       end
 
       def comment_params
-        params.require(:authors).require(:comments).permit(:body, :article_id, :status)
+        params.require(:comments).permit(:body, :article_id, :status)
       end
     end
   end
