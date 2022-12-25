@@ -4,7 +4,7 @@ info:
   title: API V1
   version: v1
 paths:
-  "/api/v1/authors/{author_id}/articles/{article_id}/unpublished":
+  "/api/v1/authors/{author_id}/articles/{article_id}/unpublished_comments":
     parameters:
     - name: author_id
       in: path
@@ -19,13 +19,13 @@ paths:
       schema:
         type: integer
     get:
-      summary: unpublished article
+      summary: unpublished comments for the article
       tags:
       - Article
       responses:
         '200':
           description: successful
-  "/api/v1/authors/{author_id}/articles/{article_id}/published":
+  "/api/v1/authors/{author_id}/articles/{article_id}/published_comments":
     parameters:
     - name: author_id
       in: path
@@ -40,7 +40,7 @@ paths:
       schema:
         type: integer
     get:
-      summary: published article
+      summary: published comments for the article
       tags:
       - Article
       responses:
@@ -61,7 +61,7 @@ paths:
       schema:
         type: integer
     get:
-      summary: last_ten_comments article
+      summary: last ten comments for the article
       tags:
       - Article
       responses:
@@ -85,6 +85,14 @@ paths:
       summary: search_current_value article
       tags:
       - Article
+      parameters:
+      - name: article
+        in: query
+        schema:
+          type: object
+          properties:
+            word:
+              type: string
       responses:
         '200':
           description: successful
@@ -106,27 +114,31 @@ paths:
       summary: filtration_articles article
       tags:
       - Article
+      parameters:
+      - name: article
+        in: query
+        description: search by status, tags, author's name
+        schema:
+          type: object
+          properties:
+            key:
+              type: string
       responses:
         '200':
           description: successful
   "/api/v1/authors/{author_id}/articles/{article_id}/sorting_articles":
-    parameters:
-    - name: author_id
-      in: path
-      description: author_id
-      required: true
-      schema:
-        type: integer
-    - name: article_id
-      in: path
-      description: article_id
-      required: true
-      schema:
-        type: integer
     post:
       summary: sorting_articles article
       tags:
       - Article
+      parameters:
+      - name: article
+        in: query
+        schema:
+          type: object
+          properties:
+            order:
+              type: string
       responses:
         '200':
           description: successful
@@ -149,6 +161,16 @@ paths:
       summary: create article
       tags:
       - Article
+      parameters:
+      - name: article
+        in: query
+        schema:
+          type: object
+          properties:
+            title:
+              type: string
+            body:
+              type: text
       responses:
         '200':
           description: successful
@@ -187,14 +209,6 @@ paths:
       responses:
         '200':
           description: successful
-  "/api/v1":
-    get:
-      summary: list authors
-      tags:
-      - Authors
-      responses:
-        '200':
-          description: successful
   "/api/v1/authors":
     get:
       summary: list authors
@@ -207,7 +221,14 @@ paths:
       summary: create author
       tags:
       - Authors
-      parameters: []
+      parameters:
+      - name: author
+        in: query
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
       responses:
         '200':
           description: successful
@@ -230,6 +251,14 @@ paths:
       summary: update author
       tags:
       - Authors
+      parameters:
+      - name: author
+        in: query
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
       responses:
         '200':
           description: successful

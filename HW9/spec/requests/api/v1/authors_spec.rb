@@ -2,23 +2,6 @@ require 'swagger_helper'
 
 RSpec.describe 'api/v1/authors', type: :request do
 
-  path '/api/v1' do
-
-    get('list authors') do
-      tags 'Authors'
-      response(200, 'successful') do
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
-        end
-        run_test!
-      end
-    end
-  end
-
   path '/api/v1/authors' do
 
     get('list authors') do
@@ -38,7 +21,7 @@ RSpec.describe 'api/v1/authors', type: :request do
 
     post('create author') do
       tags 'Authors'
-      parameter name: :author, in: :body, schema: {
+      parameter name: :author, in: :query, schema: {
         type: :object,
         properties: {
           name: { type: :string }
@@ -79,6 +62,12 @@ RSpec.describe 'api/v1/authors', type: :request do
 
     patch('update author') do
       tags 'Authors'
+      parameter name: :author, in: :query, schema: {
+        type: :object,
+        properties: {
+          name: { type: :string }
+        }
+      }
       response(200, 'successful') do
         let(:id) { '123' }
 
