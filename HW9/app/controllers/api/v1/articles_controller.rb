@@ -108,9 +108,7 @@ module Api
       end
 
       def set_filter_params
-        filter_params = [status: params[:article][:status], tags: params[:article][:tags], author: params[:article][:author]].map(&:compact).flatten[0]
-        # puts('----------', filter_params.keys[0])
-        filter_params
+        [status: params[:status], tags: params[:tags], author: params[:author]].map(&:compact).flatten[0]
       end
 
       def article_params
