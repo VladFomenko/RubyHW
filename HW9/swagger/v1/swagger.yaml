@@ -1,0 +1,326 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/authors/{author_id}/articles/{article_id}/unpublished":
+    parameters:
+    - name: author_id
+      in: path
+      description: author_id
+      required: true
+      schema:
+        type: integer
+    - name: article_id
+      in: path
+      description: article_id
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: unpublished article
+      tags:
+      - Article
+      responses:
+        '200':
+          description: successful
+  "/api/v1/authors/{author_id}/articles/{article_id}/published":
+    parameters:
+    - name: author_id
+      in: path
+      description: author_id
+      required: true
+      schema:
+        type: integer
+    - name: article_id
+      in: path
+      description: article_id
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: published article
+      tags:
+      - Article
+      responses:
+        '200':
+          description: successful
+  "/api/v1/authors/{author_id}/articles/{article_id}/last_ten_comments":
+    parameters:
+    - name: author_id
+      in: path
+      description: author_id
+      required: true
+      schema:
+        type: integer
+    - name: article_id
+      in: path
+      description: article_id
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: last_ten_comments article
+      tags:
+      - Article
+      responses:
+        '200':
+          description: successful
+  "/api/v1/authors/{author_id}/articles/{article_id}/search_current_value":
+    parameters:
+    - name: author_id
+      in: path
+      description: author_id
+      required: true
+      schema:
+        type: integer
+    - name: article_id
+      in: path
+      description: article_id
+      required: true
+      schema:
+        type: integer
+    post:
+      summary: search_current_value article
+      tags:
+      - Article
+      responses:
+        '200':
+          description: successful
+  "/api/v1/authors/{author_id}/articles/{article_id}/filtration_articles":
+    parameters:
+    - name: author_id
+      in: path
+      description: author_id
+      required: true
+      schema:
+        type: integer
+    - name: article_id
+      in: path
+      description: article_id
+      required: true
+      schema:
+        type: integer
+    post:
+      summary: filtration_articles article
+      tags:
+      - Article
+      responses:
+        '200':
+          description: successful
+  "/api/v1/authors/{author_id}/articles/{article_id}/sorting_articles":
+    parameters:
+    - name: author_id
+      in: path
+      description: author_id
+      required: true
+      schema:
+        type: integer
+    - name: article_id
+      in: path
+      description: article_id
+      required: true
+      schema:
+        type: integer
+    post:
+      summary: sorting_articles article
+      tags:
+      - Article
+      responses:
+        '200':
+          description: successful
+  "/api/v1/authors/{author_id}/articles":
+    parameters:
+    - name: author_id
+      in: path
+      description: author_id
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: list articles
+      tags:
+      - Article
+      responses:
+        '200':
+          description: successful
+    post:
+      summary: create article
+      tags:
+      - Article
+      responses:
+        '200':
+          description: successful
+  "/api/v1/authors/{author_id}/articles/{id}":
+    parameters:
+    - name: author_id
+      in: path
+      description: author_id
+      required: true
+      schema:
+        type: integer
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: show article
+      tags:
+      - Article
+      responses:
+        '200':
+          description: successful
+    patch:
+      summary: update article
+      tags:
+      - Article
+      responses:
+        '200':
+          description: successful
+    delete:
+      summary: delete article
+      tags:
+      - Article
+      responses:
+        '200':
+          description: successful
+  "/api/v1":
+    get:
+      summary: list authors
+      tags:
+      - Authors
+      responses:
+        '200':
+          description: successful
+  "/api/v1/authors":
+    get:
+      summary: list authors
+      tags:
+      - Authors
+      responses:
+        '200':
+          description: successful
+    post:
+      summary: create author
+      tags:
+      - Authors
+      parameters: []
+      responses:
+        '200':
+          description: successful
+  "/api/v1/authors/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: show author
+      tags:
+      - Authors
+      responses:
+        '200':
+          description: successful
+    patch:
+      summary: update author
+      tags:
+      - Authors
+      responses:
+        '200':
+          description: successful
+    delete:
+      summary: delete author
+      tags:
+      - Authors
+      responses:
+        '200':
+          description: successful
+  "/api/v1/authors/{author_id}/comments":
+    parameters:
+    - name: author_id
+      in: path
+      description: author_id
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: list comments
+      tags:
+      - Comments
+      responses:
+        '200':
+          description: successful
+    post:
+      summary: create comment
+      tags:
+      - Comments
+      parameters:
+      - name: comment
+        in: query
+        schema:
+          type: object
+          properties:
+            body:
+              type: string
+            article_id:
+              type: integer
+      responses:
+        '200':
+          description: successful
+  "/api/v1/authors/{author_id}/comments/{id}":
+    parameters:
+    - name: author_id
+      in: path
+      description: author_id
+      required: true
+      schema:
+        type: integer
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: show comment
+      tags:
+      - Comments
+      responses:
+        '200':
+          description: successful
+    patch:
+      summary: update comment
+      tags:
+      - Comments
+      parameters:
+      - name: comment
+        in: query
+        schema:
+          type: object
+          properties:
+            body:
+              type: string
+            article_id:
+              type: integer
+            status:
+              type: integer
+      responses:
+        '200':
+          description: successful
+    delete:
+      summary: delete comment
+      tags:
+      - Comments
+      responses:
+        '200':
+          description: successful
+servers:
+- url: http://{defaultHost}
+  variables:
+    defaultHost:
+      default: 127.0.0.1:3000/
