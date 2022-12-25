@@ -10,7 +10,7 @@ module Api
 
       before_action :set_author, except: %i[destroy filtration_articles search_current_value]
       before_action :set_article, only: %i[create show update destroy]
-      before_action :set_article_id, only: %i[last_ten_comments published unpublished]
+      before_action :set_article_id, only: %i[last_ten_comments published_comments unpublished_comments]
       after_action :set_tag, only: %i[create update]
 
       def index
@@ -47,11 +47,11 @@ module Api
         render json: @article, status: :ok if @article.destroy
       end
 
-      def unpublished
+      def unpublished_comments
         render json: { article: @article, comments: @article.comments.unpublished }, status: :ok
       end
 
-      def published
+      def published_comments
         render json: { article: @article, comments: @article.comments.published }, status: :ok
       end
 

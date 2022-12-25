@@ -8,7 +8,7 @@ Rails.application.routes.draw do
       root 'articles#index'
       resources :authors do
         resources :articles do
-          get :unpublished, :published, :last_ten_comments
+          get :unpublished_comments, :published_comments, :last_ten_comments
           post :search_current_value, :filtration_articles, :sorting_articles
           resources :likes, only: %i[index create update]
         end
