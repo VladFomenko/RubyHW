@@ -6,6 +6,7 @@ module Api
     # class AuthorsController
     class AuthorsController < ApplicationController
       before_action :set_author, only: %i[show destroy]
+      before_action :author_params, only: %i[create update]
 
       def index
         render json: Author.all, status: :ok
@@ -16,8 +17,12 @@ module Api
       end
 
       def create
-        @author = Author.create
+        @author = Author.create(author_params)
         render json: @author, status: :ok
+      end
+
+      def update
+        render json: @author, status: :ok if @author.update(author_params)
       end
 
       def destroy
@@ -28,6 +33,10 @@ module Api
 
       def set_author
         @author = Author.find(params[:id])
+      end
+
+      def author_params
+        params.require(:author).permit(:name)
       end
     end
   end
