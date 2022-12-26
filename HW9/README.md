@@ -1,5 +1,6 @@
 ## HW9
-
+create description with rswag
+create tests for articles
 
 
 ## HW8
