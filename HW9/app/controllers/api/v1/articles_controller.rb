@@ -8,7 +8,7 @@ module Api
 
       include Pagy::Backend
 
-      before_action :set_author, except: %i[destroy filtration_articles search_current_value]
+      before_action :set_author, except: %i[filtration_articles search_current_value]
       before_action :set_article, only: %i[show update destroy]
       before_action :set_article_id, only: %i[last_ten_comments published_comments unpublished_comments]
       after_action :set_tag, only: %i[create update]
@@ -18,7 +18,6 @@ module Api
       end
 
       def create
-        debugger
         @article = @author.articles.new(article_params)
         if @article.valid?
           @article.save
@@ -101,10 +100,10 @@ module Api
       end
 
       def set_tag
-        if @article.tags.find_by(title: params[:authors][:tag]).nil?
-          @article.tags.create(title: params[:authors][:tag])
+        if @article.tags.find_by(title: params[:tag]).nil?
+          @article.tags.create(title: params[:tag])
         else
-          @article.tags.update(title: params[:authors][:tag])
+          @article.tags.update(title: params[:tag])
         end
       end
 
