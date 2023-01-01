@@ -1,3 +1,4 @@
+<div class="container">
 <h1>Product <%= "#{@product.name}" %></h1>
 
 <table>
@@ -9,8 +10,12 @@
   <tr>
     <td><%= @product.name %></td>
     <td><%= @product.price %></td>
+    <td><%= @product.description %></td>
     <td><%= image_tag image_url(@product.image, height:'10', width:'10') %></td>
   </tr>
 </table>
 
 <h2>Category <%= @product.category.title %></h2>
+
+<%= link_to "back to all products", controller: "products", action: "index" %>
+</div>

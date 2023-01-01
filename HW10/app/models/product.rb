@@ -3,6 +3,6 @@ class Product < ApplicationRecord
 
   validates :name, presence: true, length: { minimum: 2 }
   validates :description, presence: true, length: { minimum: 2 }
-  validates :price, presence: true, numericality: { greater_than: 0 }
+  validates :price, numericality: { greater_than_or_equal_to: 0 }
   validates :image, presence: true, length: { minimum: 2 }
 end
