@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
   def initialize
+    super
     @categories = Category.all
   end
   def index
