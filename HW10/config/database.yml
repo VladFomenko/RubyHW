@@ -29,7 +29,7 @@ development:
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
   # the same name as the operating system user running Rails.
-  #username: HW10(new version)
+  #username: HW10
 
   # The password associated with the postgres role (username).
   #password:
@@ -82,5 +82,5 @@ test:
 production:
   <<: *default
   database: HW10_production
-  username: HW10(new version)
+  username: HW10
   password: <%= ENV["HW10_DATABASE_PASSWORD"] %>
