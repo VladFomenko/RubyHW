@@ -1,0 +1,7 @@
+0000000000000000000000000000000000000000 30247b53ac3a7be3cac1e6684d7717246a90e1f5 Vlad Fomenko <cheshirskiy.kot2311@gmail.com> 1672649081 +0200	commit (initial): HW10/create models, controllers Category, Products
+30247b53ac3a7be3cac1e6684d7717246a90e1f5 5e64d0c82098fc968259d7dad7627b69d56b4800 Vlad Fomenko <cheshirskiy.kot2311@gmail.com> 1672650128 +0200	commit: HW10/add device and admin
+5e64d0c82098fc968259d7dad7627b69d56b4800 fdadc6a61b9b0f6f1541d728ecfcec9fc5c289bf Vlad Fomenko <cheshirskiy.kot2311@gmail.com> 1672692982 +0200	commit: HW10/connect bootstrap
+fdadc6a61b9b0f6f1541d728ecfcec9fc5c289bf 6f8f76ebc62f77d46b1d6a4125f9ab749a3ddbcf Vlad Fomenko <cheshirskiy.kot2311@gmail.com> 1672693000 +0200	commit: HW10/update visual
+6f8f76ebc62f77d46b1d6a4125f9ab749a3ddbcf c8baee244d875110341fa0be709d24b3abbba0ac Vlad Fomenko <cheshirskiy.kot2311@gmail.com> 1672693035 +0200	commit: HW10/idea to gitignore
+c8baee244d875110341fa0be709d24b3abbba0ac cc93b31c12f4aef468375ab9235092c6577144f4 Vlad Fomenko <cheshirskiy.kot2311@gmail.com> 1672693123 +0200	commit: HW10/delete idea
+cc93b31c12f4aef468375ab9235092c6577144f4 2db5e3c6b59862dda5ac4c142c05393f8216bddb Vlad Fomenko <cheshirskiy.kot2311@gmail.com> 1672694239 +0200	commit: HW10/add a visual part of the page
