@@ -3,11 +3,11 @@
   <table class="table">
     <thead>
     <tr>
-      <th>Name</th>
-      <th>Price</th>
-      <th>Description</th>
-      <th>quantity</th>
       <th>Image</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Quantity</th>
+      <th>Price</th>
     </tr>
     </thead>
     <tbody>
@@ -17,7 +17,8 @@
         <td><%= line_item.product.name.capitalize %></td>
         <td><%= line_item.product.description %></td>
         <td><%= line_item.quantity %></td>
-        <td><%= line_item.product.price %></td>
+        <td><%= line_item.price %></td>
+        <td><%= button_to 'delete product', line_item_path(id: line_item.product.id), method: :delete %></td>
       </tr>
     <% end %>
     </tbody>

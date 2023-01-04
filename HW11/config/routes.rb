@@ -10,5 +10,5 @@ Rails.application.routes.draw do
   get '/cart', to: 'carts#show', as: :cart
   resources :products, only: %i[index show]
   resources :categories
-  resources :line_items, only: :create
+  resources :line_items
 end
