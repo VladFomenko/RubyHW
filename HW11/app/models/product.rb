@@ -1,5 +1,6 @@
 class Product < ApplicationRecord
   belongs_to :category
+  has_many :line_items, dependent: :nullify
 
   validates :name, presence: true, length: { minimum: 2 }
   validates :description, presence: true, length: { minimum: 2 }
