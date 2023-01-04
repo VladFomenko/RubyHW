@@ -12,7 +12,10 @@ Rails.application.routes.draw do
 
   resources :categories
 
-  post 'line_items/:id/add' => "line_items#add_quantity", as: "line_item_add"
-  post 'line_items/:id/reduce' => "line_items#reduce_quantity", as: "line_item_reduce"
+  post 'line_items/:id/add', to: "line_items#add_quantity", as: "line_item_add"
+  post 'line_items/:id/reduce', to: "line_items#reduce_quantity", as: "line_item_reduce"
   resources :line_items
+
+  get 'order/:id/paid', to: "orders#paid", as: "paid"
+  resources :orders, only: %i[index create show]
 end
