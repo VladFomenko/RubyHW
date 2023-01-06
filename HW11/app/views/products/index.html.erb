@@ -15,9 +15,11 @@
                   <button type="button" class="btn btn-secondary"><%= link_to "View", product %></button>
                   <small class="text-muted">Price: <%= product.price %></small>
                 </div>
-                <div class="d-flex">
-                  <%= button_to 'Add to cart', line_items_path(product_id: product.id), class: "btn btn-outline-dark flex-shrink-0" %>
-                </div>
+                <% if user_signed_in? %>
+                  <div class="d-flex">
+                    <%= button_to 'Add to cart', line_items_path(product_id: product.id), class: "btn btn-outline-dark flex-shrink-0" %>
+                  </div>
+                <% end %>
               </div>
             </div>
           </div>

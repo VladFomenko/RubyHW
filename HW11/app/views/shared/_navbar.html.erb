@@ -6,7 +6,7 @@
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
       <li class="nav-item">
-        <%= link_to "Back to all products", controller: "products", action: "index" %>
+        <%= link_to "Back to all products", products_path %>
       </li>
       <% @categories.each do |category| %>
         <li>
