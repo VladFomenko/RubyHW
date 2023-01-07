@@ -12,6 +12,10 @@ class Article < ApplicationRecord
 
   enum status: %i[unpublished published]
 
+  def self.x(value)
+    Article.where('title LIKE ? OR body LIKE ?', "%#{value}%", "%#{value}%")
+  end
+
   scope :unpublished, -> { where('status = 0') }
   scope :published, -> { where('status = 1') }
   scope :last_ten, ->(article_id) { find_by('id = ?', article_id).comments.order('created_at DESC ').limit(10) }

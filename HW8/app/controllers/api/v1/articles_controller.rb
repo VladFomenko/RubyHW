@@ -60,12 +60,8 @@ module Api
       end
 
       def search_current_value
-        article = Article.where('title LIKE ? OR body LIKE ?', "%#{params[:word]}%", "%#{params[:word]}%")
-        if article.blank?
-          render json: {}, status: :not_found
-        else
-          render json: article, status: :ok
-        end
+        articles = Article.x(params[:word])
+        render json: articles, status: :ok
       end
 
       def filtration_articles
@@ -109,7 +105,6 @@ module Api
 
       def set_filter_params
         filter_params = [status: params[:article][:status], tags: params[:article][:tags], author: params[:article][:author]].map(&:compact).flatten[0]
-        # puts('----------', filter_params.keys[0])
         filter_params
       end
 
