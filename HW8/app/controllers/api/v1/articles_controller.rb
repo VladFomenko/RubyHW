@@ -65,16 +65,18 @@ module Api
       end
 
       def filtration_articles
-        case set_filter_params.keys[0]
-        when :status
-          render json: Article.search_status(set_filter_params.values[0]), status: :ok
-        when :tags
-          render json: Article.search_tags(set_filter_params.values[0]), status: :ok
-        when :author
-          render json: Article.search_author(set_filter_params.values[0]), status: :ok
-        else
-          render json: {}, status: :not_found
-        end
+        required_value = set_filter_params
+        articles = case required_value.keys[0]
+                   when :status
+                     Article.search_status(required_value.values[0])
+                   when :tags
+                     Article.search_tags(required_value.values[0])
+                   when :author
+                     Article.search_author(required_value.values[0])
+                   else
+                     {}
+                   end
+        render json: articles, status: :ok
       end
 
       def sorting_articles
