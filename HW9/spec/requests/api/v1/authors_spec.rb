@@ -1,13 +1,10 @@
 require 'swagger_helper'
 
 RSpec.describe 'api/v1/authors', type: :request do
-
   path '/api/v1/authors' do
-
     get('list authors') do
       tags 'Authors'
       response(200, 'successful') do
-
         after do |example|
           example.metadata[:response][:content] = {
             'application/json' => {
@@ -42,7 +39,7 @@ RSpec.describe 'api/v1/authors', type: :request do
 
   path '/api/v1/authors/{id}' do
     # You'll want to customize the parameter types...
-    parameter name: 'id', in: :path, type: :integer, description: 'id'
+    parameter name: :id, in: :path, type: :integer, description: 'id'
 
     get('show author') do
       tags 'Authors'

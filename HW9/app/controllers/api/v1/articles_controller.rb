@@ -5,7 +5,6 @@ module Api
   module V1
     # class ArticlesController
     class ArticlesController < ApplicationController
-
       include Pagy::Backend
 
       before_action :set_author, except: %i[filtration_articles search_current_value]

@@ -10,61 +10,61 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_14_051603) do
+ActiveRecord::Schema[7.0].define(version: 20_221_214_051_603) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension 'plpgsql'
 
-  create_table "articles", force: :cascade do |t|
-    t.string "title"
-    t.text "body"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "author_id"
-    t.integer "status", default: 0, null: false
-    t.index ["author_id"], name: "index_articles_on_author_id"
+  create_table 'articles', force: :cascade do |t|
+    t.string 'title'
+    t.text 'body'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.bigint 'author_id'
+    t.integer 'status', default: 0, null: false
+    t.index ['author_id'], name: 'index_articles_on_author_id'
   end
 
-  create_table "articles_tags", id: false, force: :cascade do |t|
-    t.bigint "article_id"
-    t.bigint "tag_id"
-    t.index ["article_id"], name: "index_articles_tags_on_article_id"
-    t.index ["tag_id"], name: "index_articles_tags_on_tag_id"
+  create_table 'articles_tags', id: false, force: :cascade do |t|
+    t.bigint 'article_id'
+    t.bigint 'tag_id'
+    t.index ['article_id'], name: 'index_articles_tags_on_article_id'
+    t.index ['tag_id'], name: 'index_articles_tags_on_tag_id'
   end
 
-  create_table "authors", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "name", null: false
+  create_table 'authors', force: :cascade do |t|
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.string 'name', null: false
   end
 
-  create_table "comments", force: :cascade do |t|
-    t.string "body"
-    t.integer "status", default: 0
-    t.bigint "author_id", null: false
-    t.bigint "article_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["article_id"], name: "index_comments_on_article_id"
-    t.index ["author_id"], name: "index_comments_on_author_id"
+  create_table 'comments', force: :cascade do |t|
+    t.string 'body'
+    t.integer 'status', default: 0
+    t.bigint 'author_id', null: false
+    t.bigint 'article_id', null: false
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['article_id'], name: 'index_comments_on_article_id'
+    t.index ['author_id'], name: 'index_comments_on_author_id'
   end
 
-  create_table "likes", force: :cascade do |t|
-    t.bigint "author_id", null: false
-    t.string "likeable_type", null: false
-    t.bigint "likeable_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["author_id"], name: "index_likes_on_author_id"
-    t.index ["likeable_type", "likeable_id"], name: "index_likes_on_likeable"
+  create_table 'likes', force: :cascade do |t|
+    t.bigint 'author_id', null: false
+    t.string 'likeable_type', null: false
+    t.bigint 'likeable_id', null: false
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['author_id'], name: 'index_likes_on_author_id'
+    t.index %w[likeable_type likeable_id], name: 'index_likes_on_likeable'
   end
 
-  create_table "tags", force: :cascade do |t|
-    t.string "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'tags', force: :cascade do |t|
+    t.string 'title'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
 
-  add_foreign_key "comments", "articles"
-  add_foreign_key "comments", "authors"
-  add_foreign_key "likes", "authors"
+  add_foreign_key 'comments', 'articles'
+  add_foreign_key 'comments', 'authors'
+  add_foreign_key 'likes', 'authors'
 end

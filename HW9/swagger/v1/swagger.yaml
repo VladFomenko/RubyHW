@@ -85,18 +85,11 @@ paths:
       summary: search_current_value article
       tags:
       - Article
-      parameters:
-      - name: article
-        in: query
-        schema:
-          type: object
-          properties:
-            word:
-              type: string
+      parameters: []
       responses:
         '200':
           description: successful
-  "/api/v1/authors/{author_id}/articles/{article_id}/filtration_articles":
+  /api/v1/authors/{author_id}/articles/{article_id}/filtration_articles?tags="pretty":
     parameters:
     - name: author_id
       in: path
@@ -111,38 +104,36 @@ paths:
       schema:
         type: integer
     post:
-      summary: filtration_articles article
+      summary: filtration_articles
       tags:
       - Article
-      parameters:
-      - name: article
-        in: query
-        description: search by status, tags, author's name
-        schema:
-          type: object
-          properties:
-            key:
-              type: string
+      parameters: []
       responses:
         '200':
           description: successful
   "/api/v1/authors/{author_id}/articles/{article_id}/sorting_articles":
+    parameters:
+    - name: author_id
+      in: path
+      description: author_id
+      required: true
+      schema:
+        type: integer
+    - name: article_id
+      in: path
+      description: article_id
+      required: true
+      schema:
+        type: integer
     post:
-      summary: sorting_articles article
+      summary: sorting_articles
       tags:
       - Article
-      parameters:
-      - name: article
-        in: query
-        schema:
-          type: object
-          properties:
-            order:
-              type: string
+      parameters: []
       responses:
         '200':
           description: successful
-  "/api/v1/authors/{author_id}/articles":
+  "/api/v1/authors/{author_id}/articles?articles[title]=title&articles[body]=body":
     parameters:
     - name: author_id
       in: path
@@ -161,20 +152,11 @@ paths:
       summary: create article
       tags:
       - Article
-      parameters:
-      - name: article
-        in: query
-        schema:
-          type: object
-          properties:
-            title:
-              type: string
-            body:
-              type: text
+      parameters: []
       responses:
-        '200':
+        '201':
           description: successful
-  "/api/v1/authors/{author_id}/articles/{id}":
+  "/api/v1/authors/{author_id}/articles/{id}?articles[title]=title":
     parameters:
     - name: author_id
       in: path

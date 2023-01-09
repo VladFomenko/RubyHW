@@ -1,19 +1,18 @@
 require 'swagger_helper'
 
 RSpec.describe 'api/v1/articles', type: :request do
-
   path '/api/v1/authors/{author_id}/articles/{article_id}/unpublished_comments' do
     # You'll want to customize the parameter types...
-    parameter name: 'author_id', in: :path, type: :integer, description: 'author_id'
-    parameter name: 'article_id', in: :path, type: :integer, description: 'article_id'
+    parameter name: :author_id, in: :path, type: :integer, description: 'author_id'
+    parameter name: :article_id, in: :path, type: :integer, description: 'article_id'
 
     get('unpublished comments for the article') do
       tags 'Article'
       response(200, 'successful') do
-        let(:author) { Author.create(name: 'name') }
-        let(:article) { Article.create(title: 'title', body: 'body', author: author) }
-        let(:comment) { Comment.create(body: 'body', author_id: author, article_id: article) }
-        let(:author_id) { author.id }
+        let(:author)     { Author.create(name: 'name') }
+        let(:article)    { Article.create(title: 'title', body: 'body', author:) }
+        let(:comment)    { Comment.create(body: 'body', author_id: author, article_id: article) }
+        let(:author_id)  { author.id }
         let(:article_id) { article.id }
 
         after do |example|
@@ -25,7 +24,7 @@ RSpec.describe 'api/v1/articles', type: :request do
         end
         run_test! do |response|
           expect(response.body.nil?).to eq(false)
-          expect(response.status).to eq(200)
+          expect(response.body).to eq(nil)
         end
       end
     end
@@ -33,16 +32,16 @@ RSpec.describe 'api/v1/articles', type: :request do
 
   path '/api/v1/authors/{author_id}/articles/{article_id}/published_comments' do
     # You'll want to customize the parameter types...
-    parameter name: 'author_id', in: :path, type: :integer, description: 'author_id'
-    parameter name: 'article_id', in: :path, type: :integer, description: 'article_id'
+    parameter name: :author_id, in: :path, type: :integer, description: 'author_id'
+    parameter name: :article_id, in: :path, type: :integer, description: 'article_id'
 
     get('published comments for the article') do
       tags 'Article'
       response(200, 'successful') do
-        let(:author) { Author.create(name: 'name') }
-        let(:article) { Article.create(title: 'title', body: 'body', author: author) }
-        let(:comment) { Comment.create(body: 'body', author_id: author, article_id: article) }
-        let(:author_id) { author.id }
+        let(:author)     { Author.create(name: 'name') }
+        let(:article)    { Article.create(title: 'title', body: 'body', author:) }
+        let(:comment)    { Comment.create(body: 'body', author_id: author, article_id: article) }
+        let(:author_id)  { author.id }
         let(:article_id) { article.id }
 
         after do |example|
@@ -54,7 +53,7 @@ RSpec.describe 'api/v1/articles', type: :request do
         end
         run_test! do |response|
           expect(response.body.nil?).to eq(false)
-          expect(response.status).to eq(200)
+          expect(response.body).to eq(nil)
         end
       end
     end
@@ -62,16 +61,16 @@ RSpec.describe 'api/v1/articles', type: :request do
 
   path '/api/v1/authors/{author_id}/articles/{article_id}/last_ten_comments' do
     # You'll want to customize the parameter types...
-    parameter name: 'author_id', in: :path, type: :integer, description: 'author_id'
-    parameter name: 'article_id', in: :path, type: :integer, description: 'article_id'
+    parameter name: :author_id, in: :path, type: :integer, description: 'author_id'
+    parameter name: :article_id, in: :path, type: :integer, description: 'article_id'
 
     get('last ten comments for the article') do
       tags 'Article'
       response(200, 'successful') do
-        let(:author) { Author.create(name: 'name') }
-        let(:article) { Article.create(title: 'title', body: 'body', author: author) }
-        let(:comment) { Comment.create(body: 'body', author_id: author, article_id: article) }
-        let(:author_id) { author.id }
+        let(:author)     { Author.create(name: 'name') }
+        let(:article)    { Article.create(title: 'title', body: 'body', author:) }
+        let(:comment)    { Comment.create(body: 'body', author_id: author, article_id: article) }
+        let(:author_id)  { author.id }
         let(:article_id) { article.id }
 
         after do |example|
@@ -83,7 +82,7 @@ RSpec.describe 'api/v1/articles', type: :request do
         end
         run_test! do |response|
           expect(response.body.nil?).to eq(false)
-          expect(response.status).to eq(200)
+          expect(response.body).to eq(nil)
         end
       end
     end
@@ -91,8 +90,8 @@ RSpec.describe 'api/v1/articles', type: :request do
 
   path '/api/v1/authors/{author_id}/articles/{article_id}/search_current_value' do
     # You'll want to customize the parameter types...
-    parameter name: 'author_id', in: :path, type: :integer, description: 'author_id'
-    parameter name: 'article_id', in: :path, type: :integer, description: 'article_id'
+    parameter name: :author_id, in: :path, type: :integer, description: 'author_id'
+    parameter name: :article_id, in: :path, type: :integer, description: 'article_id'
 
     post('search_current_value article') do
       tags 'Article'
@@ -103,9 +102,9 @@ RSpec.describe 'api/v1/articles', type: :request do
         }
       }
       response(200, 'successful') do
-        let(:author) { create(:author) }
-        let(:article) { create(:article, author: author) }
-        let(:author_id) { author.id }
+        let(:author)     { create(:author) }
+        let(:article)    { create(:article, author:) }
+        let(:author_id)  { author.id }
         let(:article_id) { article.id }
 
         after do |example|
@@ -122,8 +121,8 @@ RSpec.describe 'api/v1/articles', type: :request do
 
   path '/api/v1/authors/{author_id}/articles/{article_id}/filtration_articles?tags="pretty"' do
     # You'll want to customize the parameter types...
-    parameter name: 'author_id', in: :path, type: :integer, description: 'author_id'
-    parameter name: 'article_id', in: :path, type: :integer, description: 'article_id'
+    parameter name: :author_id, in: :path, type: :integer, description: 'author_id'
+    parameter name: :article_id, in: :path, type: :integer, description: 'article_id'
 
     post('filtration_articles') do
       tags 'Article'
@@ -134,9 +133,9 @@ RSpec.describe 'api/v1/articles', type: :request do
         }
       }
       response(200, 'successful') do
-        let(:author) { create(:author) }
-        let(:article) { create(:article, author: author) }
-        let(:author_id) { author.id }
+        let(:author)     { create(:author) }
+        let(:article)    { create(:article, author:) }
+        let(:author_id)  { author.id }
         let(:article_id) { article.id }
 
         after do |example|
@@ -153,8 +152,8 @@ RSpec.describe 'api/v1/articles', type: :request do
 
   path '/api/v1/authors/{author_id}/articles/{article_id}/sorting_articles' do
     # You'll want to customize the parameter types...
-    parameter name: 'author_id', in: :path, type: :integer, description: 'author_id'
-    parameter name: 'article_id', in: :path, type: :integer, description: 'article_id'
+    parameter name: :author_id, in: :path, type: :integer, description: 'author_id'
+    parameter name: :article_id, in: :path, type: :integer, description: 'article_id'
 
     post('sorting_articles') do
       tags 'Article'
@@ -165,9 +164,9 @@ RSpec.describe 'api/v1/articles', type: :request do
         }
       }
       response(200, 'successful') do
-        let(:author) { create(:author) }
-        let(:article) { create(:article, author: author) }
-        let(:author_id) { author.id }
+        let(:author)     { create(:author) }
+        let(:article)    { create(:article, author:) }
+        let(:author_id)  { author.id }
         let(:article_id) { article.id }
 
         after do |example|
@@ -184,13 +183,13 @@ RSpec.describe 'api/v1/articles', type: :request do
 
   path '/api/v1/authors/{author_id}/articles?articles[title]=title&articles[body]=body' do
     # You'll want to customize the parameter types...
-    parameter name: 'author_id', in: :path, type: :integer, description: 'author_id'
+    parameter name: :author_id, in: :path, type: :integer, description: 'author_id'
 
     get('list articles') do
       tags 'Article'
       response(200, 'successful') do
-        let(:author) { Author.create(name: 'name') }
-        let(:article) { Article.create(title: 'title', body: 'body', author: author) }
+        let(:author)    { Author.create(name: 'name') }
+        let(:article)   { Article.create(title: 'title', body: 'body', author:) }
         let(:author_id) { author.id }
 
         after do |example|
@@ -202,7 +201,7 @@ RSpec.describe 'api/v1/articles', type: :request do
         end
         run_test! do |response|
           expect(response.body.nil?).to eq(false)
-          expect(response.status).to eq(200)
+          expect(response.body).to eq(nil)
         end
       end
     end
@@ -217,7 +216,7 @@ RSpec.describe 'api/v1/articles', type: :request do
         }
       }
       response(201, 'successful') do
-        let(:author) { create(:author) }
+        let(:author)    { create(:author) }
         let(:author_id) { author.id }
 
         after do |example|
@@ -229,7 +228,7 @@ RSpec.describe 'api/v1/articles', type: :request do
         end
         run_test! do |response|
           expect(response.body.nil?).to eq(false)
-          expect(response.status).to eq(201)
+          expect(response.body).to eq(nil)
         end
       end
     end
@@ -237,16 +236,16 @@ RSpec.describe 'api/v1/articles', type: :request do
 
   path '/api/v1/authors/{author_id}/articles/{id}?articles[title]=title' do
     # You'll want to customize the parameter types...
-    parameter name: 'author_id', in: :path, type: :integer, description: 'author_id'
-    parameter name: 'id', in: :path, type: :integer, description: 'id'
+    parameter name: :author_id, in: :path, type: :integer, description: 'author_id'
+    parameter name: :id, in: :path, type: :integer, description: 'id'
 
     get('show article') do
       tags 'Article'
       response(200, 'successful') do
-        let(:author) { Author.create(name: 'name') }
-        let(:article) { Article.create(title: 'title', body: 'body', author: author) }
+        let(:author)    { Author.create(name: 'name') }
+        let(:article)   { Article.create(title: 'title', body: 'body', author:) }
         let(:author_id) { author.id }
-        let(:id) { article.id }
+        let(:id)        { article.id }
 
         after do |example|
           example.metadata[:response][:content] = {
@@ -257,7 +256,7 @@ RSpec.describe 'api/v1/articles', type: :request do
         end
         run_test! do |response|
           expect(response.body.nil?).to eq(false)
-          expect(response.status).to eq(200)
+          expect(response.body).to eq(nil)
         end
       end
     end
@@ -265,10 +264,10 @@ RSpec.describe 'api/v1/articles', type: :request do
     patch('update article') do
       tags 'Article'
       response(200, 'successful') do
-        let(:author) { create(:author) }
-        let(:article) { create(:article, author: author) }
+        let(:author)    { create(:author) }
+        let(:article)   { create(:article, author:) }
         let(:author_id) { author.id }
-        let(:id) { article.id }
+        let(:id)        { article.id }
 
         after do |example|
           example.metadata[:response][:content] = {
@@ -279,7 +278,7 @@ RSpec.describe 'api/v1/articles', type: :request do
         end
         run_test! do |response|
           expect(response.body.nil?).to eq(false)
-          expect(response.status).to eq(200)
+          expect(response.body).to eq(nil)
         end
       end
     end
@@ -287,10 +286,10 @@ RSpec.describe 'api/v1/articles', type: :request do
     delete('delete article') do
       tags 'Article'
       response(200, 'successful') do
-        let(:author) { Author.create(name: 'name') }
-        let(:article) { Article.create(title: 'title', body: 'body', author: author) }
+        let(:author)    { Author.create(name: 'name') }
+        let(:article)   { Article.create(title: 'title', body: 'body', author:) }
         let(:author_id) { author.id }
-        let(:id) { article.id }
+        let(:id)        { article.id }
 
         after do |example|
           example.metadata[:response][:content] = {
@@ -300,10 +299,6 @@ RSpec.describe 'api/v1/articles', type: :request do
           }
         end
         run_test!
-        # do |response|
-        #   expect(response.body.nil?).to eq(false)
-        #   expect(response.status).to eq(200)
-        # end
       end
     end
   end
