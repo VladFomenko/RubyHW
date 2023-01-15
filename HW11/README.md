@@ -4,7 +4,7 @@
 
 ```git clone git@github.com:VladFomenko/RubyHW.git```
 
-Open HW10 directory
+Open HW11 directory
 
 ```rails db:create```
 

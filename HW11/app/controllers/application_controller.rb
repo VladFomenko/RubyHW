@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
   def initialize
     super
-    @categories = Category.all
+    @all_categories = Category.all
   end
   def current_cart
     Cart.find(cookies[:cart_id])
