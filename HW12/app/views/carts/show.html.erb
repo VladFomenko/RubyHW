@@ -35,5 +35,7 @@
     </tr>
     </tbody>
   </table>
-  <%= button_to 'Checkout', orders_path, class: "btn btn-primary" %>
+  <% unless current_cart.line_items.empty? %>
+    <%= button_to 'Checkout', orders_path, class: "btn btn-primary" %>
+  <% end %>
 </section>

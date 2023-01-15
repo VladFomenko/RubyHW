@@ -24,5 +24,7 @@
     <% end %>
     </tbody>
   </table>
-  <%= link_to 'Paid', paid_path(id: @order.id), class: "btn btn-primary" %>
+  <% if @order.status == 'unpaid' %>
+    <%= link_to 'Paid', paid_path(id: @order.id), class: "btn btn-primary" %>
+  <% end %>
 </section>
