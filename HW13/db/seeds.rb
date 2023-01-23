@@ -5,6 +5,8 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+require 'open-uri'
+
 AdminUser.delete_all
 User.delete_all
 Product.delete_all
@@ -34,17 +36,23 @@ names_of_drinks = ['bottle of water', 'orange juice', 'beet juice', 'apple juice
 images_of_drinks = %w[
                       https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZOSDemY8E94X08gNdO-vjkYh5mwrqFbqtfA&usqp=CAU
                       https://upload.wikimedia.org/wikipedia/commons/0/05/Orangejuice.jpg
-                      https://www.cleaneatingkitchen.com/wp-content/uploads/2021/12/beet-juice-on-a-table.jpg
-                      https://www.archanaskitchen.com/images/archanaskitchen/World_Beverages/Mulled_Apple_Juice_Recipe-1.jpg
+                      https://cdn.w2w.com.ua/wp-content/uploads/2019/05/1e315e86c16afeb856af16475f2b2dac.jpg
+                      https://images.onlymyhealth.com/imported/images/2022/November/19_Nov_2022/main-applejuicebenefits.jpg
                       https://img.livestrong.com/630x/cme-data/getty%2F31de020af4504b81ad3fca5fe2a938b4.jpg?type=webp
                       https://previews.123rf.com/images/galamik/galamik1203/galamik120300046/12758725-glass-of-cranberry-juice-on-a-white-background.jpg
                       ]
 drinks_category = Category.find_by(title: 'drink')
 
 names_of_food.each.with_index do |food, i|
-  Product.create!(name: food, description: "This is #{food.downcase}", price: rand(10.0..20.0).round(2), image: images_of_food[i], category_id: food_category.id)
+  product = Product.new(name: food, description: "This is #{food.downcase}", price: rand(10.0..20.0).round(2), category_id: food_category.id)
+  img = URI.open(images_of_food[i])
+  product.image.attach(io: img, filename: "#{product.name}.jpg")
+  product.save
   end
 
 names_of_drinks.each.with_index do |food, i|
-  Product.create(name: food, description: "This is #{food.downcase}", price: rand(10.0..20.0).round(2), image: images_of_drinks[i], category_id: drinks_category.id)
+  product = Product.create(name: food, description: "This is #{food.downcase}", price: rand(10.0..20.0).round(2), category_id: drinks_category.id)
+  img = URI.open(images_of_drinks[i])
+  product.image.attach(io: img, filename: "#{product.name}.jpg")
+  product.save
 end

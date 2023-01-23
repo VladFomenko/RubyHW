@@ -6,7 +6,6 @@
 #  name        :string
 #  description :text
 #  price       :decimal(, )      default(0.0)
-#  image       :string
 #  category_id :bigint           not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
