@@ -18,7 +18,7 @@ class Product < ApplicationRecord
   validates :description, presence: true, length: { minimum: 2 }
   validates :price, numericality: { greater_than_or_equal_to: 1 }
 
-  has_one_attached :image do |attachable|
+  has_one_attached :image, dependent: :destroy do |attachable|
     attachable.variant :small, resize_to_limit: [255, 255]
     attachable.variant :medium, resize_to_limit: [500, 500]
   end
