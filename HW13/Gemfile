@@ -72,6 +72,9 @@ group :development do
   # for N+1
   gem 'bullet'
 
+  # for show email
+  gem 'letter_opener_web', '~> 2.0'
+
   # for show schema to model
   gem 'annotate'
 

@@ -2,7 +2,6 @@ class OrdersController < ApplicationController
 
   def index
     @orders = current_user.orders
-    # @orders = current_user.include(orders)
   end
 
   def create
@@ -20,6 +19,8 @@ class OrdersController < ApplicationController
     order = Order.find(params[:id])
     order.status = 'paid'
     order.save
+
+    UserMailer.order_completed_email(current_user, order).deliver_now
 
     redirect_to order_path(order), notice: "updated ##{order.id}"
   end
