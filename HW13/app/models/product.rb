@@ -19,7 +19,7 @@ class Product < ApplicationRecord
   validates :price, numericality: { greater_than_or_equal_to: 1 }
 
   has_one_attached :image do |attachable|
-    attachable.variant :small, resize_to_limit: [225, 225]
-    attachable.variant  :medium, resize: "100x100"
+    attachable.variant :small, resize_to_limit: [255, 255]
+    attachable.variant :medium, resize_to_limit: [500, 500]
   end
 end
