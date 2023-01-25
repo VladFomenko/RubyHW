@@ -17,4 +17,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
 
   has_many :orders, dependent: :nullify
+
+  scope :with_attached_image, -> { includes(image_attachment: :blob) }
 end
