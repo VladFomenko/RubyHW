@@ -1,0 +1,41 @@
+<section class="col-sm-10">
+  <h1><%= current_user.email %>'s cart</h1>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Image</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Quantity</th>
+      <th>Price</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% LineItem.all_product_with_cart(current_cart.id).sort.each do |line_item| %>
+      <tr>
+        <td><%= image_tag line_item.product.image.variant(:small) %></td>
+        <td><%= line_item.product.name.capitalize %></td>
+        <td><%= line_item.product.description %></td>
+        <td>
+          <%= button_to "+1", line_item_add_path(id: line_item), method: :post %>
+          <%= line_item.quantity %>
+          <%= button_to "-1", line_item_reduce_path(id: line_item), method: :post %>
+        </td>
+        <td><%= line_item.price %></td>
+        <td><%= button_to 'delete product', line_item_path(id: line_item.product.id), method: :delete %></td>
+      </tr>
+    <% end %>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Total price: <%= number_to_currency current_cart.total_price %></td>
+      <td></td>
+    </tr>
+    </tbody>
+  </table>
+  <% unless current_cart.line_items.empty? %>
+    <%= button_to 'Checkout', orders_path, class: "btn btn-primary" %>
+  <% end %>
+</section>

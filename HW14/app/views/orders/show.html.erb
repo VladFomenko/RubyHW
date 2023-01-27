@@ -1,0 +1,30 @@
+<section class="col-sm-10">
+  <h1> Order #<%= @order.id %></h1>
+  <h1> Status <%= @order.status %></h1>
+
+  <table class="table">
+    <thead>
+    <tr>
+      <td>Image</td>
+      <td>Name</td>
+      <td>Description</td>
+      <td>Quantity</td>
+      <td>Price</td>
+    </tr>
+    </thead>
+    <tbody>
+    <% LineItem.all_product_with_cart(@order.cart_id).each do |line_item| %>
+      <tr>
+        <td><%= image_tag line_item.product.image.variant(:small) %></td>
+        <td><%= line_item.product.name.capitalize %></td>
+        <td><%= line_item.product.description %></td>
+        <td><%= line_item.quantity %></td>
+        <td><%= line_item.price %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <% if @order.status == 'unpaid' %>
+    <%= link_to 'Paid', paid_path(id: @order.id), class: "btn btn-primary" %>
+  <% end %>
+</section>
