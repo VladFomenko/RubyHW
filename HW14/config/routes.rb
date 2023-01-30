@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   # for show emails
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
+
+
   # get 'carts/show'
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
