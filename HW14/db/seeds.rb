@@ -6,15 +6,19 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 require 'open-uri'
+require 'ffaker'
 
 AdminUser.delete_all
 User.delete_all
 Product.delete_all
 Category.delete_all
+Cart.delete_all
+Order.delete_all
 
-AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
+AdminUser.create(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
 
-User.create!({:email => "test@gmail.com", :password => "password", :password_confirmation => "password" })
+User.create({ email: 'test@gmail.com', password: 'password', password_confirmation: 'password' })
+10.times { User.create({ email: FFaker::Internet.safe_email, password: 'password', password_confirmation: 'password' }) }
 
 Category.create(title: 'food')
 Category.create(title: 'drink')
@@ -48,7 +52,7 @@ names_of_food.each.with_index do |food, i|
   img = URI.open(images_of_food[i])
   product.image.attach(io: img, filename: "#{product.name}.jpg")
   product.save
-  end
+end
 
 names_of_drinks.each.with_index do |food, i|
   product = Product.create(name: food, description: "This is #{food.downcase}", price: rand(10.0..20.0).round(2), category_id: drinks_category.id)
@@ -56,3 +60,17 @@ names_of_drinks.each.with_index do |food, i|
   product.image.attach(io: img, filename: "#{product.name}.jpg")
   product.save
 end
+
+
+product = Product.all
+5.times do
+  cart = Cart.create
+  current_product = product.sample
+  10.times { LineItem.create(product_id: current_product, cart_id: cart, quantity: rand(1..3), price: current_product.price) }
+  cart.save
+end
+
+cart = Cart.all
+user = User.all
+
+100.times { Order.create(cart_id: cart.sample.id, user_id: user.sample.id, status: 1, created_at: Date.new(2023, 1, rand(1..31))) }
