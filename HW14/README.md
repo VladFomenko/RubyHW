@@ -18,7 +18,3 @@
 
 You will Admin User email: 'admin@example.com', password: 'password'.
 
-
-You will have two pages about products: index and show.
-
-As for admin, you can create/update/delete categories and products.
