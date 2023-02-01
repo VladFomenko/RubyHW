@@ -8,12 +8,11 @@
 require 'open-uri'
 require 'ffaker'
 
-AdminUser.delete_all
-User.delete_all
-Product.delete_all
-Category.delete_all
-Cart.delete_all
-Order.delete_all
+AdminUser.destroy_all
+User.destroy_all
+Cart.destroy_all
+Product.destroy_all
+Category.destroy_all
 
 AdminUser.create(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
 
@@ -61,16 +60,16 @@ names_of_drinks.each.with_index do |food, i|
   product.save
 end
 
-
 product = Product.all
-5.times do
-  cart = Cart.create
-  current_product = product.sample
-  10.times { LineItem.create(product_id: current_product, cart_id: cart, quantity: rand(1..3), price: current_product.price) }
-  cart.save
-end
-
-cart = Cart.all
 user = User.all
-
-100.times { Order.create(cart_id: cart.sample.id, user_id: user.sample.id, status: 1, created_at: Date.new(2023, 1, rand(1..31))) }
+100.times do
+  cart = Cart.create
+  10.times do
+    current_product = product.sample
+    check_line_item = cart.line_items.find_by(product_id: current_product.id)
+    check_line_item.update(quantity: check_line_item.quantity += 1) if check_line_item.present?
+    LineItem.create(product_id: current_product.id, cart_id: cart.id, quantity: rand(1..3), price: current_product.price)
+  end
+  cart.save
+  Order.create(cart_id: cart.id, user_id: user.sample.id, status: 'paid', created_at: Date.new(2023, 1, rand(1..31)))
+end

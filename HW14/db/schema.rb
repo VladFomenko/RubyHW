@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_23_185519) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_31_154030) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -80,8 +80,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_23_185519) do
   end
 
   create_table "line_items", force: :cascade do |t|
-    t.bigint "product_id", null: false
-    t.bigint "cart_id", null: false
+    t.bigint "product_id"
+    t.bigint "cart_id"
     t.integer "quantity", default: 1
     t.decimal "price"
     t.datetime "created_at", null: false
@@ -92,7 +92,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_23_185519) do
 
   create_table "orders", force: :cascade do |t|
     t.bigint "cart_id", null: false
-    t.bigint "user_id", null: false
+    t.bigint "user_id"
     t.string "status", default: "unpaid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

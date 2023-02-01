@@ -11,7 +11,7 @@
 #  updated_at :datetime         not null
 #
 class LineItem < ApplicationRecord
-  belongs_to :product
+  belongs_to :product, optional: true
   belongs_to :cart, optional: true
 
   validates :quantity, numericality: { greater_than_or_equal_to: 1 }
