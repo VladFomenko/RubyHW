@@ -19,8 +19,9 @@ Rails.application.routes.draw do
 
   resources :categories
 
-  post 'line_items/:id/add', to: 'line_items#add_quantity', as: 'line_item_add'
-  post 'line_items/:id/reduce', to: 'line_items#reduce_quantity', as: 'line_item_reduce'
+  # post 'line_items/:id/add', to: 'line_items#add_quantity', as: 'line_item_add'
+  # post 'line_items/:id/reduce', to: 'line_items#reduce_quantity', as: 'line_item_reduce'
+  post 'line_items/:id/change_quantity', to: 'line_items#change_quantity', as: 'line_item_change_quantity'
   resources :line_items
 
   get 'order/:id/paid', to: 'orders#paid', as: 'paid'

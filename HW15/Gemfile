@@ -43,7 +43,8 @@ gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.0'
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
-gem 'turbo-rails'
+gem 'turbo-rails', "~> 1.0"
+
 
 # for workers
 gem 'sidekiq'
