@@ -1,0 +1,13 @@
+<%= turbo_frame_tag 'update_quantity' do %>
+  <%= @number_of_items_in_the_cart %>
+<% end %>
+
+<%= turbo_frame_tag 'change_button' do %>
+  <% if LineItem.all_product_with_cart(current_cart.id).count < 1 %>
+    <%= button_to 'Add to cart', line_items_path(@line_item), class: "btn btn-outline-dark flex-shrink-0" %>
+  <% else %>
+    <%= button_to "+", line_item_change_quantity_path(@line_item, act: 'add'), method: :post %>
+    <%= @line_item.quantity %>
+    <%= button_to "-", line_item_change_quantity_path(@line_item), method: :post %>
+  <% end %>
+<% end %>
