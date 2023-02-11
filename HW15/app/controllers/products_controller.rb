@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :define_quantity_items_in_cart
+  before_action :define_quantity_items_in_cart, :check_user_signed
   def index
     @products = Product.all.with_attached_image
     @products = @products.where(category_id: params[:category]).with_attached_image if params[:category].present?

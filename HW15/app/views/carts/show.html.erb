@@ -18,13 +18,13 @@
         <td><%= line_item.product.description %></td>
         <td>
           <%= turbo_frame_tag 'change_button' do %>
-            <%= button_to "+", line_item_change_quantity_path(id: line_item.product_id, act: 'add'), method: :post %>
+            <%= button_to "+", line_item_change_quantity_path(line_item, act: 'add'), method: :post %>
             <%= line_item.quantity %>
-            <%= button_to "-", line_item_change_quantity_path(id: line_item.product_id), method: :post %>
+            <%= button_to "-", line_item_change_quantity_path(line_item), method: :post %>
           <% end %>
         </td>
         <td><%= line_item.price %></td>
-        <td><%= button_to 'delete product', line_item_path(line_item.product_id), method: :delete %></td>
+        <td><%= button_to 'delete product', line_item_path(line_item), method: :delete %></td>
       </tr>
     <% end %>
     <tr>

@@ -22,4 +22,7 @@ class Product < ApplicationRecord
     attachable.variant :small, resize_to_limit: [255, 255]
     attachable.variant :medium, resize_to_limit: [500, 500]
   end
+
+  after_create_commit -> { broadcast_prepend_to 'products' }
+  after_destroy_commit -> { broadcast_remove_to 'products' }
 end

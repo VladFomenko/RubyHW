@@ -1,0 +1,28 @@
+<div class="col">
+  <div class="card shadow-sm">
+    <div style='width:100%;height:225px;'>
+      <%= image_tag product.image.variant(:small) %>
+    </div>
+    <div class="card-body">
+      <p class="card-text">
+      <p><%= product.description %></p>
+      <div class="d-flex justify-content-between align-items-center">
+        <button type="button" class="btn btn-secondary"><%= link_to "View", product %></button>
+        <small class="text-muted">Price: <%= product.price %></small>
+      </div>
+      <% if @user_signed %>
+        <div class="d-flex">
+          <%= turbo_frame_tag 'change_button' do %>
+            <% if LineItem.all_product_with_cart(current_cart).find_by(product_id: product.id).nil? %>
+              <%= button_to 'Add to cart', line_items_path(product_id: product.id), class: "btn btn-outline-dark flex-shrink-0" %>
+            <% else %>
+              <%= button_to "+", line_item_change_quantity_path(LineItem.all_product_with_cart(current_cart).find_by(product_id: product.id), act: 'add'), method: :post %>
+              <%= LineItem.all_product_with_cart(current_cart.id).find_by(product_id: product.id).quantity %>
+              <%= button_to "-", line_item_change_quantity_path(LineItem.all_product_with_cart(current_cart).find_by(product_id: product.id)), method: :post %>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
