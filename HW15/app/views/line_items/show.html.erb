@@ -1,0 +1,7 @@
+<%= turbo_frame_tag 'change_button' do %>
+  <%= render 'line_items/quantity', line_item: @line_item %>
+<% end %>
+
+<%= turbo_frame_tag 'quantity_frame' do %>
+  <%= render 'shared/header' %>
+<% end %>

@@ -19,9 +19,7 @@
         </li>
         <li class="nav-item btn btn-light me-1">
           <%= link_to "Cart", cart_path %>
-          <%= turbo_frame_tag 'update_quantity' do %>
-            <%= @number_of_items_in_the_cart %>
-          <% end %>
+          <%= define_quantity_items_in_cart %>
         </li>
         <li class="nav-item btn btn-light me-1">
           <%= link_to "Logout", destroy_user_session_path, data: { turbo_method: :delete } %>

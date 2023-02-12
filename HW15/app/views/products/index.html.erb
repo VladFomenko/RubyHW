@@ -4,9 +4,9 @@
     <div class="container">
       <div id="products" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         <% @products.each do |product| %>
-          <%= turbo_frame_tag dom_id(product) do %>
+          <%#= turbo_frame_tag dom_id(product) do %>
             <%= render partial: 'products/product', locals: { product: product } %>
-          <% end %>
+          <%# end %>
         <% end %>
       </div>
     </div>

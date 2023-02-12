@@ -1,0 +1,7 @@
+<%= turbo_stream.update 'change_button' do %>
+  <%= render 'line_items/quantity', line_item: @line_item %>
+<% end %>
+
+<%= turbo_stream.update 'quantity_frame' do %>
+  <%= render 'shared/header' %>
+<% end %>

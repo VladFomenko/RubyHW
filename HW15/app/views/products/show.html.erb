@@ -2,24 +2,24 @@
   <div class="container px-4 px-lg-5 my-5">
     <div class="row gx-4 gx-lg-5 align-items-center">
       <div class="col-md-6">
-        <%= image_tag @product.image.variant(:medium) %>
+        <%= image_tag product.image.variant(:medium) %>
       </div>
       <div class="col-md-6">
-        <h1 class="display-5 fw-bolder"><%= @product.name.capitalize %></h1>
+        <h1 class="display-5 fw-bolder"><%= product.name.capitalize %></h1>
         <div class="fs-5 mb-5">
-          <span><%= @product.price %></span>
+          <span><%= product.price %></span>
         </div>
-        <p class="lead"><%= @product.description %></p>
+        <p class="lead"><%= product.description %></p>
         <div class="d-flex">
           <% if user_signed_in? %>
             <div class="d-flex">
               <%= turbo_frame_tag 'change_button' do %>
-                <% if LineItem.all_product_with_cart(current_cart).find_by(product_id: @product.id).nil? %>
-                  <%= button_to 'Add to cart', line_items_path(product_id: @product.id), class: "btn btn-outline-dark flex-shrink-0" %>
+                <% if LineItem.all_product_with_cart(current_cart).find_by(product_id: product.id).nil? %>
+                  <%= button_to 'Add to cart', line_items_path(product_id: product.id), class: "btn btn-outline-dark flex-shrink-0" %>
                 <% else %>
-                  <%= button_to "+", line_item_change_quantity_path(LineItem.all_product_with_cart(current_cart).find_by(product_id: @product.id), act: 'add'), method: :post %>
-                  <%= LineItem.all_product_with_cart(current_cart.id).find_by(product_id: @product.id).quantity %>
-                  <%= button_to "-", line_item_change_quantity_path(LineItem.all_product_with_cart(current_cart).find_by(product_id: @product.id)), method: :post %>
+                  <%= button_to "+", line_item_path(LineItem.all_product_with_cart(current_cart).find_by(product_id: product.id), act: 'add'), method: :patch %>
+                  <%= LineItem.all_product_with_cart(current_cart.id).find_by(product_id: product.id).quantity %>
+                  <%= button_to "-", line_item_path(LineItem.all_product_with_cart(current_cart).find_by(product_id: product.id)), method: :patch %>
                 <% end %>
               <% end %>
             </div>

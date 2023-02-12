@@ -1,6 +1,6 @@
 class LineItemsController < ApplicationController
   before_action :define_quantity_items_in_cart
-  before_action :set_line_item, only: %i[create change_quantity destroy]
+  before_action :set_line_item, only: %i[create update destroy]
   before_action :set_product, only: %i[create]
 
   def create
@@ -11,20 +11,37 @@ class LineItemsController < ApplicationController
       @line_item = current_cart.line_items.find_by(product_id: @product.id)
     end
 
-    render partial: 'line_items/quantity', notice: "#{@product.name} was successfully"
+
+    respond_to do |format|
+      # format.html { render partial: 'line_items/quantity', notice: "#{@product.name} was successfully." }
+      format.html { redirect_to line_item_path(@line_item) }
+      format.turbo_stream
+    end
+    # render partial: 'line_items/quantity', notice: "#{@product.name} was successfully."
+  end
+
+  def show; end
+
+  def update
+    # debugger
+    change_quantity
+
+    respond_to do |format|
+      format.html { redirect_to line_item_path(@line_item) }
+      format.turbo_stream
+    end
   end
 
   def destroy
     @line_item.destroy
 
-    redirect_to cart_path, notice: "#{@line_item.product.name} was delete successfully"
+    # respond_to do |format|
+    #   format.html { redirect_to cart_path, notice: "#{@line_item.product.name} was delete successfully." }
+    #   format.turbo_stream { render turbo_stream: turbo_stream.remove(@line_item) }
+    # end
+    redirect_to cart_path, notice: "#{@line_item.product.name} was delete successfully."
   end
 
-  def change_quantity
-    define_operation(params['act'])
-
-    render partial: 'line_items/quantity'
-  end
 
   private
 
@@ -34,6 +51,16 @@ class LineItemsController < ApplicationController
 
   def set_line_item
     @line_item = current_cart.line_items.find_by(id: params[:id])
+  end
+
+  def change_quantity
+    define_operation(params['act'])
+
+    # respond_to do |format|
+    #   format.html { redirect_to line_item_path(@line_item) }
+    #   format.turbo_stream
+    # end
+    # render partial: 'line_items/quantity'
   end
 
   def define_operation(act)

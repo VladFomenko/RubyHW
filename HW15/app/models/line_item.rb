@@ -17,4 +17,19 @@ class LineItem < ApplicationRecord
   validates :quantity, numericality: { greater_than_or_equal_to: 1 }
 
   scope :all_product_with_cart, ->(cart_id) { includes([:product]).where('cart_id = ?', cart_id) }
+
+  # after_create_commit -> { broadcast_replace_to 'cart-total_items', partial: 'carts/total_items', locals: { total: total_quantity }, target: 'cart-total_items' }
+  # after_update_commit -> { broadcast_replace_to 'cart-total', partial: 'carts/total', locals: { total: total_line_item_quantity }, target: 'cart-total' }
+
+  def total_price
+    quantity * price
+  end
+
+  def total_quantity
+    quantity
+  end
+
+  def total_line_item_quantity
+    self.cart.line_items.includes(:product).sum(&:quantity)
+  end
 end
