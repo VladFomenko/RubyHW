@@ -1,6 +1,6 @@
-<section class="col-sm-10">
+<section class='col-sm-10'>
   <h1><%= current_user.email %>'s cart</h1>
-  <table class="table">
+  <table class='table'>
     <thead>
     <tr>
       <th>Image</th>
@@ -17,10 +17,10 @@
         <td><%= line_item.product.name.capitalize %></td>
         <td><%= line_item.product.description %></td>
         <td>
-          <%= turbo_frame_tag 'change_button' do %>
-            <%= button_to "+", line_item_path(line_item, act: 'add'), method: :patch %>
+          <%= turbo_frame_tag dom_id(Product.find(line_item.product_id)) do %>
+            <%= button_to '+', line_item_path(line_item, act: 'add', product_id: line_item.product_id), method: :patch %>
             <%= line_item.quantity %>
-            <%= button_to "-", line_item_path(line_item), method: :patch %>
+            <%= button_to '-', line_item_path(line_item, product_id: line_item.product_id), method: :patch %>
           <% end %>
         </td>
         <td><%= line_item.price %></td>
@@ -38,6 +38,6 @@
     </tbody>
   </table>
   <% unless current_cart.line_items.empty? %>
-    <%= button_to 'Checkout', orders_path, class: "btn btn-primary" %>
+    <%= button_to 'Checkout', orders_path, class: 'btn btn-primary' %>
   <% end %>
 </section>

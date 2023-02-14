@@ -11,18 +11,19 @@
       <p class="card-text">
       <p><%= product.description %></p>
       <div class="d-flex justify-content-between align-items-center">
-        <button type="button" class="btn btn-secondary"><%= link_to "View", product %></button>
+<!--        <button type="button" class="btn btn-secondary"><%#= link_to "View", product %></button>-->
+        <%= link_to 'View', product_path(product), class: "btn btn-secondary" %>
         <small class="text-muted">Price: <%= product.price %></small>
       </div>
       <% if @user_signed %>
         <div class="d-flex">
-          <%= turbo_frame_tag 'change_button' do %>
+          <%= turbo_frame_tag dom_id(product) do %>
             <% if LineItem.all_product_with_cart(current_cart).find_by(product_id: product.id).nil? %>
               <%= button_to 'Add to cart', line_items_path(product_id: product.id), class: "btn btn-outline-dark flex-shrink-0" %>
             <% else %>
-              <%= button_to "+", line_item_path(LineItem.all_product_with_cart(current_cart).find_by(product_id: product.id), act: 'add'), method: :patch %>
+              <%= button_to '+', line_item_path(LineItem.all_product_with_cart(current_cart).find_by(product_id: product.id), act: 'add', product_id: product.id), method: :patch %>
               <%= LineItem.all_product_with_cart(current_cart.id).find_by(product_id: product.id).quantity %>
-              <%= button_to "-", line_item_path(LineItem.all_product_with_cart(current_cart).find_by(product_id: product.id)), method: :patch %>
+              <%= button_to '-', line_item_path(LineItem.all_product_with_cart(current_cart).find_by(product_id: product.id), product_id: product.id), method: :patch %>
             <% end %>
           <% end %>
         </div>
@@ -30,19 +31,3 @@
     </div>
   </div>
 </div>
-
-
-
-<%# if @user_signed %>
-<!--  <div class="d-flex">-->
-    <%#= turbo_frame_tag 'change_button' do %>
-      <%# if LineItem.all_product_with_cart(current_cart).find_by(product_id: product.id).nil? %>
-        <%#= button_to 'Add to cart', line_items_path(product_id: product.id), class: "btn btn-outline-dark flex-shrink-0" %>
-      <%# else %>
-        <%#= button_to "+", line_item_change_quantity_path(LineItem.all_product_with_cart(current_cart).find_by(product_id: product.id), act: 'add'), method: :post %>
-        <%#= LineItem.all_product_with_cart(current_cart.id).find_by(product_id: product.id).quantity %>
-        <%#= button_to "-", line_item_change_quantity_path(LineItem.all_product_with_cart(current_cart).find_by(product_id: product.id)), method: :post %>
-      <%# end %>
-    <%# end %>
-<!--  </div>-->
-<%# end %>
